@@ -1,14 +1,14 @@
+// App.js
 import React from 'react';
-import TodoList from './components/TodoList';
-import AddTodoForm from './components/AddTodoForm';
+import { Provider } from 'react-redux';
+import store from './store/store';
+import AppRouter from './router';
 
 function App() {
   return (
-    <div>
-      <h1>Todo List</h1>
-      <TodoList />
-      <AddTodoForm />
-    </div>
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
   );
 }
 
