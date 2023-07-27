@@ -9,6 +9,9 @@ const HomePage = () => {
     window.location.href = '/login';
   }
 
+  const handleSignupClick = () => {
+    window.location.href = '/signup';
+  }
 
   return (
     <div>
@@ -21,7 +24,7 @@ const HomePage = () => {
           <h2>Welcome to the Homepage!</h2>
           <p>Please either Login or signup</p>
           <button onClick={handleLoginClick}>Login</button>
-          <button>Sign Up</button>
+          <button onClick={handleSignupClick}>Sign Up</button>
         </div>
       )}
     </div>
