@@ -9,14 +9,14 @@ const usernameSlice = createSlice({
   name: 'username',
   initialState,
   reducers: {
-    signup: (state, action) => {
+    login: (state, action) => {
       state.username = action.payload;
     },
-    login: (state) => {
+    logout: (state) => {
       state.username = null;
     },
   },
 });
 
-export const { signup, login } = usernameSlice.actions;
+export const { logout, login } = usernameSlice.actions;
 export default usernameSlice.reducer;

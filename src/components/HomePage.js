@@ -1,37 +1,27 @@
 // components/HomePage.js
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { signup, login } from '../store/usernameSlice';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const HomePage = () => {
-  const [inputUsername, setInputUsername] = useState('');
-  const dispatch = useDispatch();
   const username = useSelector((state) => state.username.username);
 
-  const handleSetUsername = () => {
-    dispatch(signup(inputUsername));
-  };
+  const handleLoginClick = () => {
+    window.location.href = '/login';
+  }
 
-  const handleClearUsername = () => {
-    dispatch(login());
-  };
 
   return (
     <div>
       {username ? (
         <div>
           <h2>Welcome, {username}!</h2>
-          <button onClick={handleClearUsername}>Clear Username</button>
         </div>
       ) : (
         <div>
           <h2>Welcome to the Homepage!</h2>
-          <input
-            type="text"
-            value={inputUsername}
-            onChange={(e) => setInputUsername(e.target.value)}
-          />
-          <button onClick={handleSetUsername}>Set Username</button>
+          <p>Please either Login or signup</p>
+          <button onClick={handleLoginClick}>Login</button>
+          <button>Sign Up</button>
         </div>
       )}
     </div>
