@@ -3,7 +3,7 @@ import { login } from '../store/usernameSlice';
 import React, {useRef} from 'react';
 import Cookies from 'js-cookie';
 
-const Login = () =>{
+const LoginPage = () =>{
 
   const dispatch = useDispatch();
   const emailInputRef = useRef(null);
@@ -48,4 +48,4 @@ const Login = () =>{
   )
 }
 
-export default Login;
+export default LoginPage;
