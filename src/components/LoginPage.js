@@ -1,13 +1,16 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../store/usernameSlice';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import Cookies from 'js-cookie';
+import HomePage from './HomePage';
 
 const LoginPage = () =>{
 
   const dispatch = useDispatch();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
+  const username = useSelector((state) => state.username.username);
+  const cookieUserName = Cookies.get('username');
 
   const fetchUsernameFromAPI = async () => {
     try {
@@ -29,6 +32,7 @@ const LoginPage = () =>{
 
       // Set the cookie in browser.
       Cookies.set('token', data.token, { expires: 7 }); // Set the token to expire in 7 days
+      Cookies.set('username', data.username, { expires: 7 });
     } catch (error) {
       console.error('Error fetching username:', error);
     }
@@ -38,12 +42,20 @@ const LoginPage = () =>{
   const handleLogin = () => {
     fetchUsernameFromAPI();
   };
+
   
   return (
     <>
-      <input type='email' ref={emailInputRef} placeholder="example@domain.com"/>
-      <input ref={passwordInputRef} type='password' />
-      <button onClick={handleLogin}>Login</button>
+    {
+      cookieUserName?
+      <HomePage/>
+      :
+      <>
+        <input type='email' ref={emailInputRef} placeholder="example@domain.com"/>
+        <input ref={passwordInputRef} type='password' />
+        <button onClick={handleLogin}>Login</button>
+      </>
+    }
     </>
   )
 }

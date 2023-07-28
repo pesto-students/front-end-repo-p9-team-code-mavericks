@@ -6,11 +6,14 @@ import Cookies from "js-cookie";
 
 const Navbar = () => {
   const username = useSelector((state)=>{return state.username.username});
+  const cookieUserName = Cookies.get('username');
   const dispatch = useDispatch();
+
   const handleLogoutClick = async () => {
     const cookieTokenVal = Cookies.get('token');
     if(!cookieTokenVal){
       dispatch(logout());
+      Cookies.remove('username');
       window.location.href = '/';
       return;
     }
@@ -27,6 +30,7 @@ const Navbar = () => {
       if(response.ok){
         dispatch(logout());
         Cookies.remove('token');
+        Cookies.remove('username');
         window.location.href = '/';
       }
       else{
@@ -36,6 +40,13 @@ const Navbar = () => {
       console.error('Error while logging out:', error);
     }
   };
+
+  const handleProfileClick = () => {
+    console.log(cookieUserName);
+    window.location.href = '/profile';
+    return;
+  };
+
   return (
     <>
       <nav>
@@ -43,10 +54,15 @@ const Navbar = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          {username? 
-            <li>
-              <Link onClick={handleLogoutClick}>LogOut</Link>
-            </li>
+          {cookieUserName?
+            <>
+              <li>
+                <Link onClick={handleLogoutClick}>LogOut</Link>
+              </li>
+              <li>
+                <Link onClick={handleProfileClick}>Profile</Link>
+              </li>
+            </>
           :
           <>
             <li>
