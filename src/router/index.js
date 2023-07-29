@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import SignupPage from '../components/SignupPage';
 import ProfilePage from '../components/ProfilePage'
 import Cookies from 'js-cookie';
+import Followers from '../components/Followers';
 
 const AppRouter = () => {
   const username = useSelector((state) => state.username.username);
@@ -15,7 +16,7 @@ const AppRouter = () => {
 
   return (
     <BrowserRouter>
-      <Navbar/>
+      <Navbar />
       <Routes>
         <Route
           path="/"
@@ -24,17 +25,22 @@ const AppRouter = () => {
 
         <Route
           path="/login"
-          element={cookieUserName ? <HomePage />: <LoginPage /> }
+          element={cookieUserName ? <HomePage /> : <LoginPage />}
         />
 
         <Route
           path="/signup"
-          element={cookieUserName ? <HomePage />: <SignupPage /> }
+          element={cookieUserName ? <HomePage /> : <SignupPage />}
         />
 
         <Route
-          path="/profile"
-          element={cookieUserName ? <ProfilePage />: <LoginPage /> }
+          path="/profile/:user"
+          element={cookieUserName ? <ProfilePage/> : <LoginPage />}
+        />
+
+        <Route
+          path="/followers/:ofuser"
+          element={cookieUserName ? <Followers /> : <LoginPage />}
         />
       </Routes>
     </BrowserRouter>

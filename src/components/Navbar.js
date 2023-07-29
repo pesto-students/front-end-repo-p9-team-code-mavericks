@@ -43,7 +43,7 @@ const Navbar = () => {
 
   const handleProfileClick = () => {
     console.log(cookieUserName);
-    window.location.href = '/profile';
+    window.location.href = '/profile/'+Cookies.get('username');
     return;
   };
 
