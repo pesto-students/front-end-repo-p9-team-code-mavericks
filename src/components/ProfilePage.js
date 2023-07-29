@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
 
 const ProfilePage = () => {
   const username = useSelector((store) => store.username.username);
@@ -62,7 +63,7 @@ const ProfilePage = () => {
   return (
     <>
       {isLoading ? (
-        <p>Loading...</p>
+        <Spinner animation="border" variant="warning" />
       ) : (
         <>
           Welcome to your profile {viewingUsername}!
