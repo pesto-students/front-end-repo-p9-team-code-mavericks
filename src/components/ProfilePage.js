@@ -36,7 +36,7 @@ const ProfilePage = () => {
   }
 
   const handleFollowingClick = () => {
-    console.log("Following clicked");
+    window.location.href = '/followings/'+user;
   }
 
   const handleBookmarkClick = () => {
@@ -77,10 +77,18 @@ const ProfilePage = () => {
           </ul>
           <button onClick={handleFollowersClick}>Followers</button>
           <button onClick={handleFollowingClick}>Following</button>
-          <button onClick={handleBookmarkClick}>Bookmarks</button>
-          <button onClick={handleActivityClick}>Activity</button>
-          <button onClick={handleEditProfileClick}>Edit Profile</button>
-          <button onClick={handlePrivacySettingsClick}>Privacy Settings</button>
+          {
+            Cookies.get('username') == user?
+            (
+              <>
+                <button onClick={handleBookmarkClick}>Bookmarks</button>
+                <button onClick={handleEditProfileClick}>Edit Profile</button>
+                <button onClick={handlePrivacySettingsClick}>Privacy Settings</button>
+                <button onClick={handleActivityClick}>Activity</button>
+              </>
+            ):
+            (<></>)
+          }
           
         </>
       )}

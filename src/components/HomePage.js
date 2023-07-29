@@ -15,11 +15,16 @@ const HomePage = () => {
     window.location.href = '/signup';
   }
 
+  const handleCreateRecipeClicked = () => {
+    console.log("Create recipe clicked");
+  }
+
   return (
     <div>
       {cookieUserName ? (
         <div>
           <h2>Welcome, {cookieUserName}!</h2>
+          <button onClick={handleCreateRecipeClicked}>Create Recipe</button>
         </div>
       ) : (
         <div>
