@@ -3,10 +3,12 @@ import Cookies from 'js-cookie';
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import RecipeCard from './RecipeCard';
+import InterestsPage from './InterestsPage';
 
 const HomePage = () => {
   const username = useSelector((state) => state.username.username);
   const cookieUserName = Cookies.get('username');
+  const firstTimeLogin = Cookies.get('first_time_login');
   const [feeds, setFeeds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -48,7 +50,10 @@ const HomePage = () => {
 
   return (
     <div>
-      {cookieUserName ? (
+      {cookieUserName ?
+      firstTimeLogin? <InterestsPage/>
+      :
+      (
         <div>
           <h2>Welcome, {cookieUserName}!</h2>
           <button onClick={handleCreateRecipeClicked}>Create Recipe</button>

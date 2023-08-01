@@ -33,6 +33,8 @@ const LoginPage = () =>{
       // Set the cookie in browser.
       Cookies.set('token', data.token, { expires: 7 }); // Set the token to expire in 7 days
       Cookies.set('username', data.username, { expires: 7 });
+      Cookies.set('first_time_login', data.first_time_login, {expires: 7});
+      
     } catch (error) {
       console.error('Error fetching username:', error);
     }

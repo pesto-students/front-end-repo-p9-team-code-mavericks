@@ -1,0 +1,22 @@
+.unchecked-selector{
+  border: 1px solid rgb(243, 175, 48);
+  border-radius: 20px;
+  color: rgb(243, 175, 48);;
+  padding: 1%;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+}
+
+.checked-selector{
+  border: 1px solid white;
+  border-radius: 20px;
+  color: white;
+  padding: 1%;
+  display: inline-block;
+  background-color: rgb(243, 175, 48);
+  cursor: pointer;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+}

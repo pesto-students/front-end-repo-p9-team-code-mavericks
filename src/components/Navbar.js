@@ -14,6 +14,7 @@ const Navbar = () => {
     if(!cookieTokenVal){
       dispatch(logout());
       Cookies.remove('username');
+      Cookies.remove('first_time_login')
       window.location.href = '/';
       return;
     }
@@ -31,6 +32,7 @@ const Navbar = () => {
         dispatch(logout());
         Cookies.remove('token');
         Cookies.remove('username');
+        Cookies.remove('first_time_login');
         window.location.href = '/';
       }
       else{

@@ -8,7 +8,7 @@ const RecipeCard = (props) => {
     <div>
       <Container>
         <Card style={{ width: '28rem' }}>
-          <Card.Img variant="top" src="https://img.freepik.com/free-photo/chicken-wings-barbecue-sweetly-sour-sauce-picnic-summer-menu-tasty-food-top-view-flat-lay_2829-6471.jpg?w=2000" />
+          <Card.Img variant="top" src="" />
           <Card.Body>
             <Card.Title>{props.feed.recipe_title}</Card.Title>
             <Card.Text>

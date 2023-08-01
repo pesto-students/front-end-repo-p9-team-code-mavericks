@@ -10,6 +10,7 @@ import ProfilePage from '../components/ProfilePage'
 import Cookies from 'js-cookie';
 import Followers from '../components/Followers';
 import Followings from '../components/Followings';
+import InterestsPage from '../components/InterestsPage';
 
 const AppRouter = () => {
   const username = useSelector((state) => state.username.username);
@@ -47,6 +48,11 @@ const AppRouter = () => {
         <Route
           path="/followings/:ofuser"
           element={cookieUserName ? <Followings /> : <LoginPage />}
+        />
+
+        <Route
+          path="/interests"
+          element={cookieUserName ? <InterestsPage /> : <LoginPage />}
         />
 
       </Routes>
