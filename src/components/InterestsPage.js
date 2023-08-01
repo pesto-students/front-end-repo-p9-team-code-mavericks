@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import "../css/interests_selector.css";
-import { async } from "q";
+import Cookies from "js-cookie";
 
 const InterestsPage = () => {
   const [isGreenVegiesActive, setIsGreenVegiesActive] = useState(false);
@@ -41,12 +41,50 @@ const InterestsPage = () => {
     setIsSaladsActive(!isSaladsActive);
   };
 
-  const handleSkipClick = async() => {
-    // Some code;
-  }
-
   const handleSubmitClick = async() => {
-    // Some code;
+
+    let interestsArray = [];
+    if(isGreenVegiesActive)
+      interestsArray.push('green vegies');
+    if(isNonVegActive)
+      interestsArray.push('non veg');
+    if(isSouthIndianActive)
+      interestsArray.push('south indian');
+    if(isStreetFoodActive)
+      interestsArray.push('street food');
+    if(isFranchiseActive)
+      interestsArray.push('franchise');
+    if(isSweetDishesActive)
+      interestsArray.push('sweet dishes');
+    if(isSaladsActive)
+      interestsArray.push('salads');
+
+    try {
+      const url = `http://127.0.0.1:3000/users/intrests`;
+      const token = Cookies.get('token');
+
+      const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': token,
+        },
+        body: JSON.stringify({ interests: interestsArray}),
+      });
+
+      if (!response.ok) {
+        console.log("Failed to skip:");
+      }
+
+      const data = await response.json();
+
+      Cookies.set('first_time_login', false, {expires: 7});
+      console.log('User first_time_login set to false successfully:', data);
+      window.location.href = "/";
+    } catch (err) {
+      console.error('Error updating user:', err);
+    }
+
   }
 
   return (
@@ -76,7 +114,6 @@ const InterestsPage = () => {
         Salads
       </div>
       <div>
-        <Button variant="danger" onClick={handleSkipClick}>Skip</Button>
         <Button variant="success" onClick={handleSubmitClick}>Submit</Button>
       </div>
     </>

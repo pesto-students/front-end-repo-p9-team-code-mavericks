@@ -51,7 +51,7 @@ const HomePage = () => {
   return (
     <div>
       {cookieUserName ?
-      firstTimeLogin? <InterestsPage/>
+      firstTimeLogin == 'true' ? <InterestsPage/>
       :
       (
         <div>
