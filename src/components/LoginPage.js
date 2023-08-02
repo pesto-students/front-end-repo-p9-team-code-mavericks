@@ -27,6 +27,12 @@ const LoginPage = () =>{
       });
       const data = await response.json();
 
+      if(!response.ok){
+        console.log(data.error);
+        return;
+      }
+      console.log(data);
+
       // Set the username in the Redux store
       dispatch(login(data.username));
 
