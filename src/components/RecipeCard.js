@@ -6,13 +6,38 @@ import Container from 'react-bootstrap/Container';
 
 const RecipeCard = (props) => {
   const [isBookmarked, setIsBookmarked] = useState(props.feed.bookmarked);
+  const [isLiked, setIsLiked] = useState(props.feed.liked);
+  const [likesCnt, setLikesCnt] = useState(props.feed.recipe_likes);
+
   const token = Cookies.get('token');
+
+  const toogleLike = async () => {
+
+    const flag = isLiked ? '0' : '1';
+    const url = 'http://127.0.0.1:3000/posts/like';
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': token,
+      },
+      body: JSON.stringify({'postId': props.feed._id, 'likeFlag': flag,}),
+    });
+
+    if(!response.ok){
+      console.log('There was an error: '+response.error);
+    }
+
+    const data  = await response.json();
+    setIsLiked(!isLiked);
+    setLikesCnt(data.total_likes);
+  }
 
   const toogleBookmark = async () => {
 
     const flag = isBookmarked ? '0' : '1';
     const url = 'http://127.0.0.1:3000/posts/bookmark/' + props.feed._id + '/' + flag;
-    console.log('Url is '+url);
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -29,6 +54,7 @@ const RecipeCard = (props) => {
     console.log(data);
     setIsBookmarked(!isBookmarked);
   }
+
   return (
     <div>
       <Container>
@@ -42,7 +68,7 @@ const RecipeCard = (props) => {
             </Card.Text>
             <Button variant="warning">View Recipe</Button>
             <Button variant={!isBookmarked ? "outline-primary" : "primary"} onClick={toogleBookmark}>Bookmark</Button>
-            <Button variant="danger">Like</Button>
+            <Button variant={!isLiked ? "outline-danger" : "danger"} onClick={toogleLike}>Like {likesCnt}</Button>
           </Card.Body>
         </Card>
       </Container>

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../store/usernameSlice';
-import React, {useEffect, useRef} from 'react';
+import React, { useRef} from 'react';
 import Cookies from 'js-cookie';
 import HomePage from './HomePage';
 
