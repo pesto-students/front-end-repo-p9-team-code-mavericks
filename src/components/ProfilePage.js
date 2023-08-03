@@ -41,7 +41,7 @@ const ProfilePage = () => {
   }
 
   const handleBookmarkClick = () => {
-    console.log("Bookmark clicked");
+    window.location.href = '/bookmarks';
   }
 
   const handleActivityClick = () => {

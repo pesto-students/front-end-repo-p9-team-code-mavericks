@@ -11,6 +11,7 @@ import Cookies from 'js-cookie';
 import Followers from '../components/Followers';
 import Followings from '../components/Followings';
 import InterestsPage from '../components/InterestsPage';
+import BookmarksListPage from '../components/BookmarksListPage'
 
 const AppRouter = () => {
   const username = useSelector((state) => state.username.username);
@@ -53,6 +54,11 @@ const AppRouter = () => {
         <Route
           path="/interests"
           element={cookieUserName ? <InterestsPage /> : <LoginPage />}
+        />
+
+        <Route
+          path="/bookmarks"
+          element={cookieUserName ? <BookmarksListPage /> : <LoginPage />}
         />
 
       </Routes>
