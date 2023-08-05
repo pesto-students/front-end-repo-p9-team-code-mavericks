@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import RecipeCard from './RecipeCard';
 import InterestsPage from './InterestsPage';
+import Spinner from 'react-bootstrap/Spinner';
 
 const HomePage = () => {
   const username = useSelector((state) => state.username.username);
@@ -25,7 +26,7 @@ const HomePage = () => {
   }
 
   const handleCreateRecipeClicked = () => {
-    console.log("Create recipe clicked");
+    window.location.href = '/createpost';
   }
 
   const fetchUserFeeds = async () => {
@@ -118,7 +119,7 @@ const HomePage = () => {
               ) : (
                 <>Nothing to show!</>
               )}
-              {isLoading && <p>Loading...</p>}
+              {isLoading && <Spinner animation="border" variant="warning" />}
             </div>
           ) : (
           <div>
