@@ -1,0 +1,30 @@
+.create-post-background{
+  background-color: rgb(245, 170, 59);
+  background-repeat: no-repeat;
+  background-image: url('../img/svgtest.svg');
+  background-size: cover;
+}
+.create-post-button{
+  background-image: linear-gradient(to right, rgb(253, 249, 17) , rgb(255, 174, 0));
+  color: white;
+  border: 0px;
+}
+
+
+.create-post-outer-container{
+  width: 60%;
+  margin-left: 20%;
+}
+
+/* Responsive layout for smaller screens */
+@media screen and (max-width: 768px) {
+  .create-post-divs{
+    width: 100%;
+    margin-left: 1%;
+  }
+
+  .create-post-outer-container{
+    width: 100%;
+    margin-left: 0%;
+  }
+}
