@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import CloseButton from 'react-bootstrap/CloseButton';
@@ -7,6 +7,9 @@ import Button from 'react-bootstrap/Button';
 import backgroundImage from '../img/icons8-delete.svg';
 import "../css/create_post.css";
 import bubbleSvg from "../img/svgtest.svg"
+import Cookies from "js-cookie";
+import UploadImgComponent from "./UploadImgComponent";
+
 
 
 const CreatePostPage = () => {
@@ -14,6 +17,13 @@ const CreatePostPage = () => {
   const [steps, setSteps] = useState([{ id: 1, content: 'Add step Description' }]);
   const [ingridients, setIngridients] = useState([]);
   const [ingridientInputValue, setIngridientInputValue] = useState('');
+  const [isPublic, setIsPublic] = useState(false);
+  const [files, setFiles] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const title = useRef('');
+  const category = useRef('');
+  const switchRef = useRef(false);
+  const description = useRef('');
 
   const randomNumberGenerator = () => {
     return Math.floor(Math.random() * 1000000000000); // Generates a random 12-digit number
@@ -63,11 +73,87 @@ const CreatePostPage = () => {
     setIngridientInputValue(e.target.value);
   }
 
+  const handleCreateRecipeClick = async() => {
+    const token = Cookies.get('token');
+    const handleUploadImgResp = await handleUpload(token);
+
+    if(handleUploadImgResp.error){
+      console.log(handleUploadImgResp.error);
+      return;
+    }
+    console.log('Ret files:', handleUploadImgResp);
+    let recipePictures = [];
+
+    handleUploadImgResp.map((item) => {
+      recipePictures = [...recipePictures, item];
+    });
+    console.log('pic array ',recipePictures);
+
+    const response = await fetch('http://127.0.0.1:3000/posts/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': token,
+      },
+    
+      body: JSON.stringify(
+        { 
+          ispublic: isPublic,
+          recipe_steps: steps.map(item => item.content),
+          recipe_title: title.current.value,
+          recipe_ingredients: ingridients.map(item => item.content),
+          recipe_category: category.current.value,
+          recipe_description: description.current.value,
+          recipe_picture: handleUploadImgResp.map(item => item),
+        }),
+    });
+    const data = await response.json();
+
+    if(!response.ok){
+      console.log(data.error);
+      return;
+    }
+    console.log(data);
+  }
+
+  const handleUpload = async (token) => {
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i]);
+    }
+
+    try {
+      const response = await fetch('http://127.0.0.1:3000/posts/img/upload', {
+        method: 'POST',
+        headers: {
+          'authorization': token,
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if(!response.ok){
+        return data;
+      }
+      setFiles([]);
+      setSelectedFiles([]);
+      return data.filePaths;
+    } catch (error) {
+      console.error('Error uploading files:', error);
+    }
+  };
+
+  const handleSwitchChange = () => {
+    setIsPublic(switchRef.current.checked);
+  }
+
+
   return (
     <>
       <h3>Create a post page</h3>
-      <div className="create-post-outer-container">
-        <Container>
+      <div className="create-post-outer-container"style={{boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'}}>
+        <Container >
           <div className="create-post-divs" >
             <div><h3 style={{ color: 'gray' }}>Basic info:</h3></div>
             <div style={{ padding: "1%" }}>
@@ -76,13 +162,13 @@ const CreatePostPage = () => {
                 label="Recipe Title"
                 className="mb-3"
               >
-                <Form.Control type="text" placeholder="" />
+                <Form.Control type="text" placeholder="" ref = {title}/>
               </FloatingLabel>
             </div>
 
             <div style={{ padding: "1%" }}>
               <FloatingLabel controlId="floatingSelect" label="Category">
-                <Form.Select aria-label="Floating label select example">
+                <Form.Select aria-label="Floating label select example" ref = {category}>
                   <option>None</option>
                   <option value="veg">Veg</option>
                   <option value="green-vegies">Green Vegies</option>
@@ -103,17 +189,20 @@ const CreatePostPage = () => {
                   as="textarea"
                   placeholder=""
                   style={{ height: '100px' }}
+                  ref = {description}
                 />
               </FloatingLabel>
-              <div style={{ padding: "1%" }}>
-                <FloatingLabel>
-                  <Form.Check // prettier-ignore
-                    type="switch"
-                    id="custom-switch"
-                    label="Public"
-                  />
-                </FloatingLabel>
-              </div>
+            </div>
+            <div style={{ padding: "1%" }}>
+              <FloatingLabel>
+                <Form.Check
+                  type="switch"
+                  id="custom-switch"
+                  label="Public"
+                  ref = {switchRef}
+                  onChange={handleSwitchChange}
+                />
+              </FloatingLabel>
             </div>
           </div>
 
@@ -182,7 +271,11 @@ const CreatePostPage = () => {
           </div>
 
           <div className="create-post-divs" style={{ marginTop: "4%" }}>
-            <Button className="create-post-button" style={{ color: 'white', border: '0px' }}>Create Recipe Post</Button>
+            <UploadImgComponent files={files} selectedFiles={selectedFiles} setFiles={setFiles} setSelectedFiles={setSelectedFiles}/>
+          </div>
+
+          <div className="create-post-divs" style={{ marginTop: "4%" }}>
+            <Button className="create-post-button" style={{ color: 'white', border: '0px' }} onClick={handleCreateRecipeClick}>Create Recipe Post</Button>
           </div>
         </Container>
       </div>
