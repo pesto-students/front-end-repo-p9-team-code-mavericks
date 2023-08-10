@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from '../store/usernameSlice';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import '../css/navbar.css';
+import seachIconImg from "../img/icons8-search.svg"
 
 const Navbar = () => {
-  const username = useSelector((state)=>{return state.username.username});
+  const username = useSelector((state) => { return state.username.username });
   const cookieUserName = Cookies.get('username');
   const dispatch = useDispatch();
+  const searchInp = useRef('');
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
 
   const handleLogoutClick = async () => {
     const cookieTokenVal = Cookies.get('token');
-    if(!cookieTokenVal){
+    if (!cookieTokenVal) {
       dispatch(logout());
       Cookies.remove('username');
       Cookies.remove('first_time_login')
@@ -28,14 +49,14 @@ const Navbar = () => {
         },
       });
       const data = await response.json();
-      if(response.ok){
+      if (response.ok) {
         dispatch(logout());
         Cookies.remove('token');
         Cookies.remove('username');
         Cookies.remove('first_time_login');
         window.location.href = '/';
       }
-      else{
+      else {
         console.log("Error with logout response");
       }
     } catch (error) {
@@ -44,38 +65,46 @@ const Navbar = () => {
   };
 
   const handleProfileClick = () => {
-    console.log(cookieUserName);
-    window.location.href = '/profile/'+Cookies.get('username');
+    window.location.href = '/profile/' + Cookies.get('username');
     return;
   };
 
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          {cookieUserName?
+
+      <nav className={`desk-nav ${scrolled ? 'scrolled' : ''}`}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', gap: '20px' }}>
+          <div><h3><b>R/\SO!</b></h3></div>
+          {cookieUserName ?
             <>
-              <li>
-                <Link onClick={handleLogoutClick}>LogOut</Link>
-              </li>
-              <li>
-                <Link onClick={handleProfileClick}>Profile</Link>
-              </li>
+              <div className="search-bar">
+                <div style={{ width: '90%' }}>
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className="search-input"
+                    style={{ width: '100%' }}
+                  />
+                </div>
+                <div className='search-icon-inner-div' >
+                  <img src={seachIconImg} alt='search-icon' className="image-preview" />
+                </div>
+              </div>
+              <div><Link className='nav-links' to='/' >Home</Link></div>
+              <div><Link className='nav-links' to='/bookmarks'>Bookmarks</Link></div>
+              <div><Link className='nav-links' onClick={handleProfileClick}>Profile</Link></div>
+              <div><Link className='nav-links' onClick={handleLogoutClick}>Logout</Link></div>
+
             </>
-          :
-          <>
-            <li>
-              <Link to="/login">LogIn</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
-          </>
+            :
+            <>
+              <div><Link style={{ textDecoration: 'none', color: 'white' }} to="/login">LogIn</Link></div>
+              <div><Link style={{ textDecoration: 'none', color: 'white' }} to="/signup">Sign Up</Link></div>
+            </>
           }
-        </ul>
+
+
+        </div>
       </nav>
     </>
   )
