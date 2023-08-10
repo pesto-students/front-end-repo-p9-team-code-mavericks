@@ -152,9 +152,9 @@ const CreatePostPage = () => {
   return (
     <>
       <h3>Create a post page</h3>
-      <div className="create-post-outer-container"style={{boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'}}>
+      <div className="create-post-outer-container">
         <Container >
-          <div className="create-post-divs" >
+          <div className="create-post-divs" style={{boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',borderRadius: '20px',padding: '2.5%'}}>
             <div><h3 style={{ color: 'gray' }}>Basic info:</h3></div>
             <div style={{ padding: "1%" }}>
               <FloatingLabel
@@ -206,7 +206,7 @@ const CreatePostPage = () => {
             </div>
           </div>
 
-          <div className="create-post-divs" style={{ marginTop: "4%" }}>
+          <div className="create-post-divs" style={{ marginTop: "4%",boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',borderRadius: '20px',padding: '2.5%' }}>
             <div><h3 style={{ color: 'gray' }}>Add Steps:</h3></div>
 
             <div id='mydiv' style={{ padding: "1%" }}>
@@ -244,7 +244,7 @@ const CreatePostPage = () => {
             </div>
           </div>
 
-          <div className="create-post-divs" style={{ marginTop: "4%" }}>
+          <div className="create-post-divs" style={{ marginTop: "4%",boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',borderRadius: '20px',padding: '2.5%' }}>
             <div><h3 style={{ color: 'gray' }}>Add ingredient:</h3></div>
             <div style={{ padding: "1%" }}>
               <div style={{ width: "100%", display: "flex", justifyContent: "space-evenly" }}>
@@ -270,7 +270,7 @@ const CreatePostPage = () => {
             </div>
           </div>
 
-          <div className="create-post-divs" style={{ marginTop: "4%" }}>
+          <div className="create-post-divs" style={{ marginTop: "4%", boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',borderRadius: '20px',padding: '2.5%' }}>
             <UploadImgComponent files={files} selectedFiles={selectedFiles} setFiles={setFiles} setSelectedFiles={setSelectedFiles}/>
           </div>
 

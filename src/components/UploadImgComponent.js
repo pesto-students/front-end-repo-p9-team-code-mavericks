@@ -47,7 +47,7 @@ const UploadImgComponent = (props) => {
             className='display-uploaded-img-inner-div'
             key={index}
           >
-            <img src={filePath} alt={`Selected ${index}`} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+            <img src={filePath} alt={`Selected ${index}`} style={{ width: '100%', height: '100%', objectFit: 'cover', maxWidth: '100%', maxHeight: '100%' }} />
           </div>
         ))}
       </div>
