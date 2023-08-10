@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import { Button } from "react-bootstrap";
 import "../css/signupPage.css";
+// import { url } from "inspector";
 
 const SignupPage = () => {
   const [errorMsg, setErrorMsg] = useState("");
@@ -90,7 +91,11 @@ const SignupPage = () => {
 
   return (
     <>
-      <h1>Rasoi</h1>
+    <div style={{backgroundImage: "url('https://img.freepik.com/premium-vector/food-vector-seamless-pattern-cuisine-fast-food-cafe-wallpaper-with-gastronomy-icons-yellow-gold-color-texture-decorative-textile-wrapping-paper-design-bright-background-menu-receipts_106317-9575.jpg?w=2000')"}}>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,400&family=Rum+Raisin&display=swap" rel="stylesheet"></link>
+      <h1 style={{fontFamily: "Rum Raisin, sans-serif"}}>Rasoi</h1>
       <Container style={{ width: "60%" }}>
         <div
           className="signupPage"
@@ -180,7 +185,7 @@ const SignupPage = () => {
             {errorMsg ? <ErrorMsgBox errorMsg={errorMsg} /> : <></>}
             <Button
               onClick={handleSignup}
-              variant="warning"
+              variant="secondary"
               style={{ width: "10vw" }}
             >
               Sign Up
@@ -196,13 +201,14 @@ const SignupPage = () => {
             }}
           >
             <img
-              src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQHjYnt1gGhdMBz3SRFQv-HI_t6bX-9kN4_bo_mfXsGKDWFSqeM"
+              src="https://thumbs.dreamstime.com/z/indian-food-curry-banquet-17901041.jpg?w=576"
               alt="alternatetext"
               style={{ width: "100%", height: "100%", borderRadius: "25px" }}
             />
           </div>
         </div>
       </Container>
+      </div>
     </>
   );
 };
