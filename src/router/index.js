@@ -12,6 +12,7 @@ import Followers from '../components/Followers';
 import Followings from '../components/Followings';
 import InterestsPage from '../components/InterestsPage';
 import BookmarksListPage from '../components/BookmarksListPage'
+import CreatePostPage from '../components/CreatePostPage';
 
 const AppRouter = () => {
   const username = useSelector((state) => state.username.username);
@@ -59,6 +60,11 @@ const AppRouter = () => {
         <Route
           path="/bookmarks"
           element={cookieUserName ? <BookmarksListPage /> : <LoginPage />}
+        />
+        
+        <Route
+          path="/createpost"
+          element={cookieUserName ? <CreatePostPage /> : <LoginPage />}
         />
 
       </Routes>
