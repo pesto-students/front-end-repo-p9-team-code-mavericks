@@ -1,0 +1,13 @@
+.profile-side-nav-links{
+  padding: 2vh;
+  transition: all 0.7s ease;
+  background-color: orange;
+  color: white;
+  border-radius: 12px;
+  font-weight: 400;
+}
+
+.profile-side-nav-links:hover {
+  border-left: 5px solid white;
+  background-color: rgb(255, 199, 94);
+}

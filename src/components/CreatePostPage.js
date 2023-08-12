@@ -256,7 +256,7 @@ const CreatePostPage = () => {
               {ingridients.map((ingridient) => {
                 return (
                   <>
-                    <div key={`ingridient_${ingridient.id}`} style={{ maxWidth: '100%', overflow: 'scroll', margin: '3px', backgroundColor: 'orange', alignItems: "center", padding: "0.5% 1% 1% 3%", borderRadius: "25px", display: 'inline-block' }}>
+                    <div key={`ingridient_${ingridient.id}`} style={{ maxWidth: '100%', overflow: 'auto', margin: '3px', backgroundColor: 'orange', alignItems: "center", padding: "0.5% 1% 1% 3%", borderRadius: "25px", display: 'inline-block' }}>
                       <div style={{ backgroundColor: "orange", color: "white", display: "inline-block" }}>
                         <span>{ingridient.content}</span>
                       </div>&nbsp;&nbsp;
