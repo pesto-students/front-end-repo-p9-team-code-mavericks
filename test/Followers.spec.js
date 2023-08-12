@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect"; // For additional DOM matchers
-import Followers from "./Followers"; // Replace with the actual path to your Followers component
+import Followers from "../src/components/Followers"; // Replace with the actual path to your Followers component
 
 // Mock the global fetch function
 global.fetch = jest.fn();

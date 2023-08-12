@@ -1,10 +1,13 @@
 import "@testing-library/jest-dom/extend-expect"; // Import the extension for custom matchers
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import ErrorMsgBox from "./ErrorMsgBox";
+
+import ErrorMsgBox from "../src/components/ErrorMsgBox";
 
 // Test the ErrorMsgBox component
-test('renders error message correctly', () => {
+// describe is for making the test suite.
+describe('ErrorMsgBox', () =>{
+  test('renders error message correctly', () => {
     const errorMsg = 'This is an error message';
     render(<ErrorMsgBox errorMsg={errorMsg} />);
   
@@ -18,4 +21,4 @@ test('renders error message correctly', () => {
   
     // Verify that the small element has the class 'error-msg-css'
     expect(smallElement).toHaveClass('error-msg-css');
-  });
+  })});
