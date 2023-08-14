@@ -1,5 +1,5 @@
 .desk-nav{
-  background-color: orange;
+  background-image: linear-gradient(to right, orange , rgb(247, 55, 55));
   padding: 12px;
   display: block;
   color:white;

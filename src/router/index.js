@@ -20,7 +20,7 @@ const AppRouter = () => {
 
   return (
     <BrowserRouter>
-      <Navbar />
+    {cookieUserName?<Navbar/>: <></>}
       <Routes>
         <Route
           path="/"
