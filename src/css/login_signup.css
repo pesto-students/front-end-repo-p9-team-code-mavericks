@@ -1,0 +1,77 @@
+.login-signup-div{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  transition: 0.5s ease-in-out;
+}
+
+.login-signup-container {
+  justify-content: center;
+  width: 65% !important;
+  height: 80vh;
+  margin-top: 10vh;
+  background-color: white;
+}
+
+
+.login-signup-flexbox{
+  height: 80vh;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 13px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.wallpaper-div{
+  position: relative;
+  background-color: black;
+  border-radius: 13px;
+  width: 50%;
+  height: 80vh;
+  transition: 0.5s ease-in-out;
+}
+
+.active {
+  transform: translateX(100%);
+  transition: 0.5s ease-in-out;
+}
+
+.active2{
+  transform: translateX(-100%);
+  transition: 0.5s ease-in-out;
+}
+
+.wallpaper-img1{
+  background-image: url('../img/z2w9enzo.png');
+}
+
+.wallpaper-img2{
+  background-image: url('../img/recipe_login_wallpaper.jpg');
+}
+
+
+/* Responsive layout for smaller screens */
+@media screen and (max-width: 768px) {
+  .login-signup-div{
+    width: 100%;
+    transform: translateX(0) !important;
+  }
+
+  .wallpaper-div {
+    width: 0%;
+    display: none;
+  }
+
+  .login-signup-container {
+    width: 100% !important;
+    height: 90vh;
+    margin-top: 5vh !important;
+  }
+  
+  .login-signup-flexbox{
+    width: 100%;
+  }
+}

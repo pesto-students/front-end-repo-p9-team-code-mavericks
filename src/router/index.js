@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import HomePage from '../components/HomePage';
-import LoginPage from '../components/LoginPage';
 import Navbar from '../components/Navbar';
 import SignupPage from '../components/SignupPage';
 import ProfilePage from '../components/ProfilePage'
@@ -28,43 +27,33 @@ const AppRouter = () => {
         />
 
         <Route
-          path="/login"
-          element={cookieUserName ? <HomePage /> : <LoginPage />}
-        />
-
-        <Route
-          path="/signup"
-          element={cookieUserName ? <HomePage /> : <SignupPage />}
-        />
-
-        <Route
           path="/profile/:user"
-          element={cookieUserName ? <ProfilePage /> : <LoginPage />}
+          element={cookieUserName ? <ProfilePage /> : <HomePage />}
         />
 
         <Route
           path="/followers/:ofuser"
-          element={cookieUserName ? <Followers /> : <LoginPage />}
+          element={cookieUserName ? <Followers /> : <HomePage />}
         />
 
         <Route
           path="/followings/:ofuser"
-          element={cookieUserName ? <Followings /> : <LoginPage />}
+          element={cookieUserName ? <Followings /> : <HomePage />}
         />
 
         <Route
           path="/interests"
-          element={cookieUserName ? <InterestsPage /> : <LoginPage />}
+          element={cookieUserName ? <InterestsPage /> : <HomePage />}
         />
 
         <Route
           path="/bookmarks"
-          element={cookieUserName ? <BookmarksListPage /> : <LoginPage />}
+          element={cookieUserName ? <BookmarksListPage /> : <HomePage />}
         />
         
         <Route
           path="/createpost"
-          element={cookieUserName ? <CreatePostPage /> : <LoginPage />}
+          element={cookieUserName ? <CreatePostPage /> : <HomePage />}
         />
 
       </Routes>

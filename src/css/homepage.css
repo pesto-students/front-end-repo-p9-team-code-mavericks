@@ -1,0 +1,40 @@
+.add-post-img-icon{
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: white;
+  border: 0px;
+  width: 10vh;
+  height: 10vh;
+  display: block;
+  transition-duration: 0.5s;
+}
+
+.add-post-img-icon:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 25px;
+}
+
+
+
+
+
+.post-card-div-flexbox{
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-img-div{
+  background-image: url('../img/test_img.jpg');
+  object-fit: cover;
+}
+
+.post-content-div {
+  width: 75%;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  align-items: center;
+}

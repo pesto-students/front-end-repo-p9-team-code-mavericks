@@ -5,6 +5,13 @@ import { useSelector } from 'react-redux';
 import RecipeCard from './RecipeCard';
 import InterestsPage from './InterestsPage';
 import Spinner from 'react-bootstrap/Spinner';
+import LoginContent from './LoginContent';
+import SignupContent from './SignupContent';
+import { Container } from 'react-bootstrap';
+import '../css/homepage.css';
+import addRecipeImage from '../img/recipe_add_icon.png';
+import ToastContainer from 'react-bootstrap/ToastContainer';
+import Toast from 'react-bootstrap/Toast';
 
 const HomePage = () => {
   const username = useSelector((state) => state.username.username);
@@ -16,7 +23,12 @@ const HomePage = () => {
   const [shouldFetch, setShouldFetch] = useState(true);
   const [pageNo, setPageNo] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoginFormActive, setIsLoginFormActive] = useState(true);
+  const [mostLikedPosts, setMostLikedPosts] = useState([]);
 
+  const handleSlideClick = () => {
+    setIsLoginFormActive(!isLoginFormActive);
+  };
   const handleLoginClick = () => {
     window.location.href = '/login';
   }
@@ -34,7 +46,7 @@ const HomePage = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/posts/retrieve/'+pageNo, {
+      const response = await fetch('http://127.0.0.1:3000/posts/retrieve/' + pageNo, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -43,13 +55,13 @@ const HomePage = () => {
       });
 
       const data = await response.json();
-      if(!response.ok){
+      if (!response.ok) {
         console.log(data.error);
         setShouldFetch(false);
         return;
       }
-      setPageNo(pageNo+1);
-      setFeeds([...feeds,...data.posts]);
+      setPageNo(pageNo + 1);
+      setFeeds([...feeds, ...data.posts]);
       setTotalPages(data.totalPages);
     } catch (error) {
       console.error('Error fetching feeds:', error);
@@ -58,9 +70,34 @@ const HomePage = () => {
     }
   }
 
+
+  const fetchMostLikedPosts = async () => {
+    try {
+      const token = Cookies.get('token');
+
+      const response = await fetch('http://127.0.0.1:3000/posts/mostliked', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json', // Specify that you are sending JSON data
+          'authorization': token,
+        },
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        console.log(data.error);
+        return;
+      }
+      setMostLikedPosts([...mostLikedPosts, ...data.most_liked_posts]);
+    } catch (error) {
+      console.error('Error fetching most liked posts:', error);
+    }
+  }
+
   useEffect(() => {
     if (shouldFetch) {
       fetchUserFeeds();
+      fetchMostLikedPosts();
       setShouldFetch(false);
     }
   }, [shouldFetch]);
@@ -73,7 +110,7 @@ const HomePage = () => {
         const lastEntry = entries[0];
         if (lastEntry.isIntersecting && !isLoading) {
           // If the last RecipeCard is in the viewport and no loading in progress, fetch next recipes
-          if(totalPages >= pageNo)
+          if (totalPages >= pageNo)
             fetchUserFeeds();
         }
       },
@@ -93,6 +130,18 @@ const HomePage = () => {
     };
   }, [isLoading]);
 
+  const createdTime = (createdAt) => {
+    const currentTime = new Date();
+    const createdTime = new Date(createdAt);
+
+    const timeDifferenceInHours = (currentTime - createdTime) / (1000 * 60 * 60);
+
+    if (timeDifferenceInHours < 24) {
+      return createdTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    } else {
+      return `${createdTime.getDate()} ${createdTime.toLocaleString('default', { month: 'short' })} ${createdTime.getFullYear()}`;
+    }
+  }
 
   return (
     <div>
@@ -100,34 +149,94 @@ const HomePage = () => {
         firstTimeLogin == 'true' ? <InterestsPage />
           :
           (
-            <div>
-              <h2>Welcome, {cookieUserName}!</h2>
-              <button onClick={handleCreateRecipeClicked}>Create Recipe</button>
-              <h4>FEEDS:</h4>
-              {feeds && feeds.length > 0 ? (
-                feeds.map((feed, index) => {
-                  if (index === feeds.length - 1) {
-                    return (
-                      <div key={index} ref={lastRecipeCardRef}>
-                        <RecipeCard feed={feed} />
-                      </div>
-                    );
-                  } else {
-                    return <RecipeCard key={index} feed={feed} />;
+            <>
+              <div style={{ position: 'relative', display: 'flex' }}>
+                {console.log(JSON.stringify(mostLikedPosts))}
+                <div style={{ overflowY: 'auto', padding: '2% 0 2% 0', gap: '5px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: '30%', backgroundImage: 'linear-gradient(to right, orange , white)', position: 'fixed', height: '100vh' }}>
+                  <div style={{ fontSize: '1.2rem', padding: '1.5%', color: 'orange', backgroundColor: 'white', width: '60%', borderRadius: '14px', textAlign: 'center' }}><b>Most Liked</b></div>
+                  {
+                    mostLikedPosts.map((post) => {
+                      return (
+                        <ToastContainer
+                          className="position-static"
+                          key={post._id}
+                          style={{ zIndex: 1 }}
+                        >
+                          <Toast>
+                            <Toast.Header closeButton={false}>
+                              <img
+                                src=""
+                                className="rounded me-2"
+                                alt=""
+                              />
+                              <strong className="me-auto">Author: &nbsp;<i style={{ color: 'blue' }}>{post.author_username}</i></strong>
+                              <small>{createdTime(post.createdAt)}</small>
+                            </Toast.Header>
+                            <Toast.Body>
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div style={{ width: '80%' }}>{post.recipe_title}</div>
+                                <div style={{ width: '20%' }}>{post.recipe_likes} <span style={{ color: 'blue' }}>Likes</span></div>
+                              </div>
+
+                            </Toast.Body>
+                          </Toast>
+                        </ToastContainer>
+                      )
+                    })
                   }
-                })
-              ) : (
-                <>Nothing to show!</>
-              )}
-              {isLoading && <Spinner animation="border" variant="warning" />}
-            </div>
+
+                </div>
+                <div style={{ marginLeft: '30%', width: '50%', }}>
+                  {feeds && feeds.length > 0 ? (
+                    feeds.map((feed, index) => {
+                      if (index === feeds.length - 1) {
+                        return (
+                          <div style={{}} key={feed._id} ref={lastRecipeCardRef}>
+                            <RecipeCard feed={feed} />
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div style={{ padding: '1%' }}>
+                            <RecipeCard key={feed._id} feed={feed} />
+                          </div>
+                        );
+                      }
+                    })
+                  ) : (
+                    <>Nothing to show!</>
+                  )}
+                  {isLoading && <Spinner animation="border" variant="warning" />}
+                </div>
+                <div style={{ width: '20%', flexDirection: 'column', position: 'relative', display: 'flex', position: 'fixed', height: '100vh', right: '0', alignItems: 'center', justifyContent: 'flex-start', marginTop: '3%' }}>
+                  <div style={{ width: '90%', alignItems: 'center', backgroundColor: 'rgb(231, 8, 142)', height: 'auto', color: 'white', borderRadius: '14px', textAlign: 'center', padding: '5% 3% 3% 3%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                    <div style={{ fontSize: '1.5rem' }}>
+                      <b>Lets Create Recipe</b>
+                    </div>
+                    <div className='floating-add-post-icon' style={{ cursor: 'pointer', borderRadius: '25px', }} onClick={handleCreateRecipeClicked}>
+                      <label
+                        className='add-post-img-icon'
+                        style={{ backgroundImage: `url(${addRecipeImage})`, borderRadius: '25px' }}
+                      ></label>
+                    </div >
+                  </div>
+                </div>
+              </div>
+            </>
+
           ) : (
-          <div>
-            <h2>Welcome to the Homepage!</h2>
-            <p>Please either Login or signup</p>
-            <button onClick={handleLoginClick}>Login</button>
-            <button onClick={handleSignupClick}>Sign Up</button>
-          </div>
+          <Container className='login-signup-container'>
+            <div className='login-signup-flexbox'>
+              <div className={isLoginFormActive ? "login-signup-div active" : "login-signup-div"}>
+                {isLoginFormActive ? <LoginContent handleSlideClick={handleSlideClick} /> : <SignupContent handleSlideClick={handleSlideClick} />}
+              </div>
+              <div className={
+                isLoginFormActive ? "wallpaper-div active2 wallpaper-img2" : "wallpaper-div wallpaper-img1"
+              }>
+                <div style={{ backgroundImage: 'linear-gradient(to right, orange, #e7088e)', position: 'absolute', width: '100%', height: '80vh', opacity: '40%', zIndex: '2', borderRadius: '13px' }}></div>
+              </div>
+            </div>
+          </Container>
         )}
     </div>
   );
