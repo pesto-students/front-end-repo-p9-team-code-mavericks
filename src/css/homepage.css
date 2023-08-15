@@ -16,25 +16,20 @@
   border-radius: 25px;
 }
 
-
-
-
-
-.post-card-div-flexbox{
-  display: flex;
-  justify-content: space-between;
-}
-
-.post-img-div{
-  background-image: url('../img/test_img.jpg');
-  object-fit: cover;
-}
-
-.post-content-div {
-  width: 75%;
-  border: 1px solid blue;
-  display: flex;
+.create-post-flex-div{
+  width: 20%;
   flex-direction: column;
-  word-wrap: break-word;
+  position: relative;
+  display: flex;
+  position: fixed;
+  height: 100vh;
+  right: 0;
   align-items: center;
+  justify-content: flex-start;
+  margin-top: 3%;
+}
+
+.feeds-flex-div{
+  margin-left: 30%;
+  width: 50%;
 }

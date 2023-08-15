@@ -150,7 +150,7 @@ const HomePage = () => {
           :
           (
             <>
-              <div style={{ position: 'relative', display: 'flex' }}>
+              <div style={{ position: 'relative', display: 'flex', position:'relative' }}>
                 {console.log(JSON.stringify(mostLikedPosts))}
                 <div style={{ overflowY: 'auto', padding: '2% 0 2% 0', gap: '5px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: '30%', backgroundImage: 'linear-gradient(to right, orange , white)', position: 'fixed', height: '100vh' }}>
                   <div style={{ fontSize: '1.2rem', padding: '1.5%', color: 'orange', backgroundColor: 'white', width: '60%', borderRadius: '14px', textAlign: 'center' }}><b>Most Liked</b></div>
@@ -186,7 +186,7 @@ const HomePage = () => {
                   }
 
                 </div>
-                <div style={{ marginLeft: '30%', width: '50%', }}>
+                <div className='feeds-flex-div'>
                   {feeds && feeds.length > 0 ? (
                     feeds.map((feed, index) => {
                       if (index === feeds.length - 1) {
@@ -208,8 +208,8 @@ const HomePage = () => {
                   )}
                   {isLoading && <Spinner animation="border" variant="warning" />}
                 </div>
-                <div style={{ width: '20%', flexDirection: 'column', position: 'relative', display: 'flex', position: 'fixed', height: '100vh', right: '0', alignItems: 'center', justifyContent: 'flex-start', marginTop: '3%' }}>
-                  <div style={{ width: '90%', alignItems: 'center', backgroundColor: 'rgb(231, 8, 142)', height: 'auto', color: 'white', borderRadius: '14px', textAlign: 'center', padding: '5% 3% 3% 3%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                <div className='create-post-flex-div'>
+                  <div style={{ width: '95%', alignItems: 'center', backgroundColor: 'rgb(231, 8, 142)', height: 'auto', color: 'white', borderRadius: '14px', textAlign: 'center', padding: '5% 3% 3% 3%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                     <div style={{ fontSize: '1.5rem' }}>
                       <b>Lets Create Recipe</b>
                     </div>
