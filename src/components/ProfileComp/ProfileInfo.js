@@ -37,6 +37,8 @@ export default function ProfilePage() {
   const [isEmailVisible, setIsEmailVisible] = useState(false);
   const [isFollowersVisible, setIsFollowersVisible] = useState(false);
   const [isContactVisible, setIsContactVisible] = useState(false);
+  const [followersCnt, setFollowersCnt] = useState(0);
+  const [followingCnt, setFollowingCnt] = useState(0);
   
 
   const fetchUserDetails = async () => {
@@ -67,15 +69,20 @@ export default function ProfilePage() {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/users/username/' + user, {
+      const response = await fetch('http://127.0.0.1:3000/users/'+user+'/count/followers', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
           'authorization': token,
         },
       });
+
+      if(!response.ok){
+        console.log("Error occured : "+data.error);
+      }
+
       const data = await response.json();
-      setUserDetails(data.user_details);
+      setFollowersCnt(data.followers_count);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -105,7 +112,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     fetchUserDetails();
-    // fetchNumbers();
+    fetchNumbers();
   }, []);
 
 
@@ -129,11 +136,10 @@ export default function ProfilePage() {
                     {!isLoading ? userDetails.firstname + ' ' + userDetails.lastname : <>Loading</>}
                   </b>
                 </p>
-                <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
                 <div className="d-flex justify-content-center mb-2">
                   {
-                    Cookies.get('username') == userDetails.username ?
-                      <MDBBtn>Edit</MDBBtn> :
+                    Cookies.get('username') == userDetails.username?
+                      <MDBBtn>Unfollow</MDBBtn> :
                       <MDBBtn>Follow</MDBBtn>
                   }
                 </div>
@@ -238,7 +244,7 @@ export default function ProfilePage() {
                     <MDBCardBody>
                       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                         <div>
-                          <span style={{ color: 'orange', fontSize: '5vh' }}><b>302</b></span>
+                          <span style={{ color: 'orange', fontSize: '5vh' }}><b>{followersCnt}</b></span>
                         </div>
                         <div>
                           <small style={{ color: 'gray' }}>Followers</small>

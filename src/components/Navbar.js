@@ -142,6 +142,8 @@ const Navbar = () => {
     console.log(result);
     if(result.username && result.username !== '')
       window.location.href = '/profile/'+result.username;
+    else if(result._id && result._id !== '')
+      window.location.href = '/post/'+result._id;
   }
 
   return (

@@ -10,7 +10,6 @@ import likeImg from '../img/icons8-heart-liked.png';
 import bookmarkImg from '../img/icons8-bookmarked.png';
 import unbookmarkImg from '../img/icons8-unbookmark.png'
 
-
 const RecipeCard = (props) => {
   const [isBookmarked, setIsBookmarked] = useState(props.feed.bookmarked);
   const [isLiked, setIsLiked] = useState(props.feed.liked);
@@ -62,41 +61,46 @@ const RecipeCard = (props) => {
     setIsBookmarked(!isBookmarked);
   }
 
+  const viewDetailedRecipe = () => {
+    console.log('view '+window.location.href);
+    window.location.href = '/post/'+props.feed._id;
+  }
+
   return (
-    <Container style={{ justifyContent: 'center', width: '97%', }}>
-      <div style={{ boxShadow: '0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',padding: '2%', display: 'flex', backgroundColor:'white', justifyContent: 'space-between', alignItems: 'flex-start', border: '0px solid lightgray', position: 'relative', border:'1px solid lightgray', borderRadius: '13px' }}>
-        <div style={{ width: '30%', borderRadius: '13px' }}>
-          <img src={card_img} style={{ borderRadius: '13px', maxHeight: "100%", maxWidth: "100%", width: '100%', height: '25vh', objectFit: 'cover' }}></img>
+    <Container className="recipe-card-container">
+      <div className="recipe-card-inner-div">
+        <div className='recipe-card-img-div'>
+          <img className="recipe-card-img" src="http://127.0.0.1:3000/uploads/ca2080db-afce-4f0a-9869-dda96f405ca2.png" ></img>
         </div>
-        <div style={{ width: '68%' }}>
-          <div style={{ fontSize: '1.5rem', color: 'gray', wordWrap:'break-word', width:'90%'}}><b>{props.feed.recipe_title}</b></div>
+        <div className='recipe-card-content-div' >
+          <div style={{ fontSize: '1.5rem', color: 'gray', wordWrap: 'break-word', width: '90%' }}><b>{props.feed.recipe_title}</b></div>
           <div style={{ fontSize: '0.9rem' }}>{props.feed.recipe_description}</div>
-          <div className="interact-buttons" style={{ position: 'absolute', gap: '15px', bottom: '2vh', display: 'flex', alignItems: 'flex-start' }}>
+          <div className="interact-buttons-flex-div" >
 
             {
               (!isLiked) ?
                 <>
-                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent:'flex-start', alignItems:'center' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
                     <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleLike}>
                       <img src={unlikeImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
                     </div>
-                    <div style={{color:'gray'}}>{likesCnt}</div>
+                    <div style={{ color: 'gray' }}>{likesCnt}</div>
                   </div>
                 </>
                 :
                 <>
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent:'flex-start', alignItems:'center' }}>
-                <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleLike}>
-                    <img src={likeImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
+                    <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleLike}>
+                      <img src={likeImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
+                    </div>
+                    <div style={{ color: 'gray' }}>{likesCnt}</div>
                   </div>
-                  <div style={{color:'gray'}}>{likesCnt}</div>
-                </div>
-              </>
+                </>
             }
-            <div ><Button style={{ backgroundColor: 'orange', color: 'white', borderRadius: '10px', border: '0px' }}>View</Button></div>
+            <div onClick={viewDetailedRecipe} ><Button style={{ backgroundColor: 'orange', color: 'white', borderRadius: '10px', border: '0px' }}>View</Button></div>
           </div>
-          <div style={{position: 'absolute', top:'1vh', right:'3vh', boxShadow:'0 4px 6px rgba(0, 0, 0, 0.3)', borderRadius:'25px', padding:'1%'}}>
-          {
+          <div className="recipe-card-bookmark-icon">
+            {
               (isBookmarked) ?
                 <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleBookmark}>
                   <img src={bookmarkImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
@@ -106,7 +110,7 @@ const RecipeCard = (props) => {
                 </div>
             }
           </div>
-          <div style={{ color: 'gray', position: 'absolute', bottom: '2%', right: '2%' }}><small>Author: <i style={{color: 'blue'}}>{props.feed.author_username}</i></small></div>
+          <div className='recipe-card-author-tag'><small>Author: <i style={{ color: 'blue' }}>{props.feed.author_username}</i></small></div>
         </div>
       </div>
     </Container>

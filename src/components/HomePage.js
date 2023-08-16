@@ -94,6 +94,10 @@ const HomePage = () => {
     }
   }
 
+  const goToProfile = (e) => {
+    window.location.href = '/profile/'+e.target.innerText;
+  }
+
   useEffect(() => {
     if (shouldFetch) {
       fetchUserFeeds();
@@ -143,6 +147,8 @@ const HomePage = () => {
     }
   }
 
+
+
   return (
     <div>
       {cookieUserName ?
@@ -150,42 +156,7 @@ const HomePage = () => {
           :
           (
             <>
-              <div style={{ position: 'relative', display: 'flex', position:'relative' }}>
-                {console.log(JSON.stringify(mostLikedPosts))}
-                <div style={{ overflowY: 'auto', padding: '2% 0 2% 0', gap: '5px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: '30%', backgroundImage: 'linear-gradient(to right, orange , white)', position: 'fixed', height: '100vh' }}>
-                  <div style={{ fontSize: '1.2rem', padding: '1.5%', color: 'orange', backgroundColor: 'white', width: '60%', borderRadius: '14px', textAlign: 'center' }}><b>Most Liked</b></div>
-                  {
-                    mostLikedPosts.map((post) => {
-                      return (
-                        <ToastContainer
-                          className="position-static"
-                          key={post._id}
-                          style={{ zIndex: 1 }}
-                        >
-                          <Toast>
-                            <Toast.Header closeButton={false}>
-                              <img
-                                src=""
-                                className="rounded me-2"
-                                alt=""
-                              />
-                              <strong className="me-auto">Author: &nbsp;<i style={{ color: 'blue' }}>{post.author_username}</i></strong>
-                              <small>{createdTime(post.createdAt)}</small>
-                            </Toast.Header>
-                            <Toast.Body>
-                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <div style={{ width: '80%' }}>{post.recipe_title}</div>
-                                <div style={{ width: '20%' }}>{post.recipe_likes} <span style={{ color: 'blue' }}>Likes</span></div>
-                              </div>
-
-                            </Toast.Body>
-                          </Toast>
-                        </ToastContainer>
-                      )
-                    })
-                  }
-
-                </div>
+              <div className='homepage-flex-div'>
                 <div className='feeds-flex-div'>
                   {feeds && feeds.length > 0 ? (
                     feeds.map((feed, index) => {
@@ -207,6 +178,40 @@ const HomePage = () => {
                     <>Nothing to show!</>
                   )}
                   {isLoading && <Spinner animation="border" variant="warning" />}
+                </div>
+                <div className='most-liked-flex-div'>
+                  <div className='most-liked-text'><b>Most Liked</b></div>
+                  {
+                    mostLikedPosts.map((post) => {
+                      return (
+                        <ToastContainer
+                          className="position-static toast-cont"
+                          key={post._id}
+                          style={{ zIndex: 1}}
+                        >
+                          <Toast className='actual-toast'>
+                            <Toast.Header closeButton={false}>
+                              <img
+                                src=""
+                                className="rounded me-2"
+                                alt=""
+                              />
+                              <strong className="me-auto">Author: &nbsp;<i style={{ color: 'blue', cursor:'pointer'}} onClick={goToProfile}>{post.author_username}</i></strong>
+                              <small>{createdTime(post.createdAt)}</small>
+                            </Toast.Header>
+                            <Toast.Body>
+                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div value={post._id} style={{ width: '80%'}}>{post.recipe_title}</div>
+                                <div style={{ width: '20%' }}>{post.recipe_likes} <span style={{ color: 'blue' }}>Likes</span></div>
+                              </div>
+
+                            </Toast.Body>
+                          </Toast>
+                        </ToastContainer>
+                      )
+                    })
+                  }
+
                 </div>
                 <div className='create-post-flex-div'>
                   <div style={{ width: '95%', alignItems: 'center', backgroundColor: 'rgb(231, 8, 142)', height: 'auto', color: 'white', borderRadius: '14px', textAlign: 'center', padding: '5% 3% 3% 3%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>

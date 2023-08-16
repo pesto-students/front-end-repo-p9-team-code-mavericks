@@ -12,6 +12,7 @@ import Followings from '../components/Followings';
 import InterestsPage from '../components/InterestsPage';
 import BookmarksListPage from '../components/BookmarksListPage'
 import CreatePostPage from '../components/CreatePostPage';
+import RecipeDetail from '../components/RecipeDetail';
 
 const AppRouter = () => {
   const username = useSelector((state) => state.username.username);
@@ -19,7 +20,7 @@ const AppRouter = () => {
 
   return (
     <BrowserRouter>
-    {cookieUserName?<Navbar/>: <></>}
+      {cookieUserName ? <Navbar /> : <></>}
       <Routes>
         <Route
           path="/"
@@ -50,10 +51,15 @@ const AppRouter = () => {
           path="/bookmarks"
           element={cookieUserName ? <BookmarksListPage /> : <HomePage />}
         />
-        
+
         <Route
           path="/createpost"
           element={cookieUserName ? <CreatePostPage /> : <HomePage />}
+        />
+
+        <Route
+          path="/post/:id"
+          element={cookieUserName ? <RecipeDetail /> : <HomePage />}
         />
 
       </Routes>

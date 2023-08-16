@@ -24,6 +24,7 @@ const CreatePostPage = () => {
   const category = useRef('');
   const switchRef = useRef(false);
   const description = useRef('');
+  const cookingTime = useRef('');
 
   const randomNumberGenerator = () => {
     return Math.floor(Math.random() * 1000000000000); // Generates a random 12-digit number
@@ -74,6 +75,7 @@ const CreatePostPage = () => {
   }
 
   const handleCreateRecipeClick = async() => {
+    console.log('recipe title is '+title.current.value);
     const token = Cookies.get('token');
     const handleUploadImgResp = await handleUpload(token);
 
@@ -95,7 +97,7 @@ const CreatePostPage = () => {
         'Content-Type': 'application/json',
         'authorization': token,
       },
-    
+
       body: JSON.stringify(
         { 
           ispublic: isPublic,
@@ -105,6 +107,7 @@ const CreatePostPage = () => {
           recipe_category: category.current.value,
           recipe_description: description.current.value,
           recipe_picture: handleUploadImgResp.map(item => item),
+          recipe_time: cookingTime.current.value,
         }),
     });
     const data = await response.json();
@@ -193,6 +196,18 @@ const CreatePostPage = () => {
                 />
               </FloatingLabel>
             </div>
+
+            <div style={{ padding: "1%" }}>
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Cooking Time"
+                className="mb-3"
+              >
+                <Form.Control type="text" placeholder="" ref = {cookingTime}/>
+              </FloatingLabel>
+            </div>
+
+
             <div style={{ padding: "1%" }}>
               <FloatingLabel>
                 <Form.Check
