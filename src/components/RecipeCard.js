@@ -3,6 +3,12 @@ import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
+import card_img from '../img/recipe_login_wallpaper.jpg';
+import '../css/homepage.css';
+import unlikeImg from '../img/icons8-heart-unliked.png';
+import likeImg from '../img/icons8-heart-liked.png';
+import bookmarkImg from '../img/icons8-bookmarked.png';
+import unbookmarkImg from '../img/icons8-unbookmark.png'
 
 const RecipeCard = (props) => {
   const [isBookmarked, setIsBookmarked] = useState(props.feed.bookmarked);
@@ -22,14 +28,14 @@ const RecipeCard = (props) => {
         'Content-Type': 'application/json',
         'authorization': token,
       },
-      body: JSON.stringify({'postId': props.feed._id, 'likeFlag': flag,}),
+      body: JSON.stringify({ 'postId': props.feed._id, 'likeFlag': flag, }),
     });
 
-    if(!response.ok){
-      console.log('There was an error: '+response.error);
+    if (!response.ok) {
+      console.log('There was an error: ' + response.error);
     }
 
-    const data  = await response.json();
+    const data = await response.json();
     setIsLiked(!isLiked);
     setLikesCnt(data.total_likes);
   }
@@ -46,33 +52,68 @@ const RecipeCard = (props) => {
       },
     });
 
-    if(!response.ok){
-      console.log('There was an error: '+response.error);
+    if (!response.ok) {
+      console.log('There was an error: ' + response.error);
     }
 
-    const data  = await response.json();
+    const data = await response.json();
     console.log(data);
     setIsBookmarked(!isBookmarked);
   }
 
+  const viewDetailedRecipe = () => {
+    console.log('view '+window.location.href);
+    window.location.href = '/post/'+props.feed._id;
+  }
+
   return (
-    <div>
-      <Container>
-        <Card style={{ width: '28rem' }}>
-          <Card.Img variant="top" src="" />
-          <Card.Body>
-            <Card.Title>{props.feed.recipe_title}</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-            <Button variant="warning">View Recipe</Button>
-            <Button variant={!isBookmarked ? "outline-primary" : "primary"} onClick={toogleBookmark}>Bookmark</Button>
-            <Button variant={!isLiked ? "outline-danger" : "danger"} onClick={toogleLike}>Like {likesCnt}</Button>
-          </Card.Body>
-        </Card>
-      </Container>
-    </div>
+    <Container className="recipe-card-container">
+      <div className="recipe-card-inner-div">
+        <div className='recipe-card-img-div'>
+          <img className="recipe-card-img" src="http://127.0.0.1:3000/uploads/ca2080db-afce-4f0a-9869-dda96f405ca2.png" ></img>
+        </div>
+        <div className='recipe-card-content-div' >
+          <div style={{ fontSize: '1.5rem', color: 'gray', wordWrap: 'break-word', width: '90%' }}><b>{props.feed.recipe_title}</b></div>
+          <div style={{ fontSize: '0.9rem' }}>{props.feed.recipe_description}</div>
+          <div className="interact-buttons-flex-div" >
+
+            {
+              (!isLiked) ?
+                <>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
+                    <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleLike}>
+                      <img src={unlikeImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
+                    </div>
+                    <div style={{ color: 'gray' }}>{likesCnt}</div>
+                  </div>
+                </>
+                :
+                <>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
+                    <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleLike}>
+                      <img src={likeImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
+                    </div>
+                    <div style={{ color: 'gray' }}>{likesCnt}</div>
+                  </div>
+                </>
+            }
+            <div onClick={viewDetailedRecipe} ><Button style={{ backgroundColor: 'orange', color: 'white', borderRadius: '10px', border: '0px' }}>View</Button></div>
+          </div>
+          <div className="recipe-card-bookmark-icon">
+            {
+              (isBookmarked) ?
+                <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleBookmark}>
+                  <img src={bookmarkImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
+                </div> :
+                <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleBookmark}>
+                  <img src={unbookmarkImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
+                </div>
+            }
+          </div>
+          <div className='recipe-card-author-tag'><small>Author: <i style={{ color: 'blue' }}>{props.feed.author_username}</i></small></div>
+        </div>
+      </div>
+    </Container>
   );
 };
 

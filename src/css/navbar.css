@@ -1,12 +1,33 @@
 .desk-nav{
-  background-color: orange;
+  background-image: linear-gradient(to right, orange , rgb(231, 8, 142));
   padding: 12px;
   display: block;
   color:white;
   position: sticky;
   top: 0;
-  z-index:101;
-  transition: 0.5s;
+  z-index:100;
+  transition: 0.5s ease-in-out;
+}
+
+.overlay{
+  display: block !important;
+}
+
+.overlay-hidden{
+  display: none !important;
+}
+
+.search-results {
+  display: block !important;  
+  opacity: 100% !important;
+}
+
+.search-results-hidden {
+  display: none !important;
+}
+
+.search-bar-clicked-overlay {
+  z-index: 4;
 }
 
 .search-bar {
@@ -22,8 +43,22 @@
   transition: border-color 0.3s ease;
 }
 
-.search-bar:focus {
+.search-bar-with-outline {
+  display: flex;
   border: 1px solid black;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  width: 30%;
+  height: 5.5vh;
+  border-radius: 12px;
+  padding: 0.5%;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar:focus {
+  border: 1px solid black !important;
 }
 
 .image-preview {
@@ -51,6 +86,7 @@
   border-radius: 12px;
 }
 
+
 .nav-links {
   text-decoration: none;
   color: white;
@@ -63,9 +99,10 @@
 
 /* Add these styles for the scrolled state */
 .desk-nav.scrolled {
-  background-color: white;
+  background-image: linear-gradient(to right, white , white);
   color: orange;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow at the bottom */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  transition: 0.5s ease-in-out;
 }
 
 /* Adjust text color for the scrolled state */

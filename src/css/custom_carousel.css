@@ -1,0 +1,22 @@
+.image-transition {
+  width: 100%;
+  height: auto;
+}
+
+.img-icon{
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: white;
+  border: 0px;
+  width: 6vh;
+  height: 6vh;
+  display: block;
+  transition-duration: 0.3s;
+}
+
+.img-icon:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 25px;
+}

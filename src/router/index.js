@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import HomePage from '../components/HomePage';
-import LoginPage from '../components/LoginPage';
 import Navbar from '../components/Navbar';
 import SignupPage from '../components/SignupPage';
 import ProfilePage from '../components/ProfilePage'
@@ -13,6 +12,7 @@ import Followings from '../components/Followings';
 import InterestsPage from '../components/InterestsPage';
 import BookmarksListPage from '../components/BookmarksListPage'
 import CreatePostPage from '../components/CreatePostPage';
+import RecipeDetail from '../components/RecipeDetail';
 
 const AppRouter = () => {
   const username = useSelector((state) => state.username.username);
@@ -20,7 +20,7 @@ const AppRouter = () => {
 
   return (
     <BrowserRouter>
-      <Navbar />
+      {cookieUserName ? <Navbar /> : <></>}
       <Routes>
         <Route
           path="/"
@@ -28,43 +28,38 @@ const AppRouter = () => {
         />
 
         <Route
-          path="/login"
-          element={cookieUserName ? <HomePage /> : <LoginPage />}
-        />
-
-        <Route
-          path="/signup"
-          element={cookieUserName ? <HomePage /> : <SignupPage />}
-        />
-
-        <Route
           path="/profile/:user"
-          element={cookieUserName ? <ProfilePage /> : <LoginPage />}
+          element={cookieUserName ? <ProfilePage /> : <HomePage />}
         />
 
         <Route
           path="/followers/:ofuser"
-          element={cookieUserName ? <Followers /> : <LoginPage />}
+          element={cookieUserName ? <Followers /> : <HomePage />}
         />
 
         <Route
           path="/followings/:ofuser"
-          element={cookieUserName ? <Followings /> : <LoginPage />}
+          element={cookieUserName ? <Followings /> : <HomePage />}
         />
 
         <Route
           path="/interests"
-          element={cookieUserName ? <InterestsPage /> : <LoginPage />}
+          element={cookieUserName ? <InterestsPage /> : <HomePage />}
         />
 
         <Route
           path="/bookmarks"
-          element={cookieUserName ? <BookmarksListPage /> : <LoginPage />}
+          element={cookieUserName ? <BookmarksListPage /> : <HomePage />}
         />
-        
+
         <Route
           path="/createpost"
-          element={cookieUserName ? <CreatePostPage /> : <LoginPage />}
+          element={cookieUserName ? <CreatePostPage /> : <HomePage />}
+        />
+
+        <Route
+          path="/post/:id"
+          element={cookieUserName ? <RecipeDetail /> : <HomePage />}
         />
 
       </Routes>

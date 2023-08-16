@@ -1,0 +1,37 @@
+.right-half-div {
+  padding: 2%;
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  gap: 1.5vh;
+  margin-left: 20%;
+}
+
+
+
+.ingridient-div {
+  width: 20%;
+  position: fixed;
+  top: 10vh;
+  left: 0;
+  height: 100vh;
+  padding: 2% 0.7%;
+  overflow: scroll;
+}
+
+/* Responsive layout for smaller screens */
+@media screen and (max-width: 768px) {
+.right-half-div {
+  width: 100%;
+  margin-left: 0;
+}
+
+.ingridient-div {
+  position: static;
+  height: auto;
+  overflow: hidden;
+  width: 100%;
+  top:1vh;
+  padding:1%;
+}
+}
