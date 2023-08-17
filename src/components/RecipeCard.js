@@ -20,7 +20,7 @@ const RecipeCard = (props) => {
   const toogleLike = async () => {
 
     const flag = isLiked ? '0' : '1';
-    const url = 'http://127.0.0.1:3000/posts/like';
+    const url = process.env.REACT_APP_WEBSITE_URL + '/posts/like';
 
     const response = await fetch(url, {
       method: 'POST',
@@ -43,7 +43,7 @@ const RecipeCard = (props) => {
   const toogleBookmark = async () => {
 
     const flag = isBookmarked ? '0' : '1';
-    const url = 'http://127.0.0.1:3000/posts/bookmark/' + props.feed._id + '/' + flag;
+    const url = process.env.REACT_APP_WEBSITE_URL + '/posts/bookmark/' + props.feed._id + '/' + flag;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -65,12 +65,13 @@ const RecipeCard = (props) => {
     console.log('view '+window.location.href);
     window.location.href = '/post/'+props.feed._id;
   }
-
+  const src_var = process.env.REACT_APP_WEBSITE_URL+"/uploads/ca2080db-afce-4f0a-9869-dda96f405ca2.png"
+  console.log(src_var);
   return (
     <Container className="recipe-card-container">
       <div className="recipe-card-inner-div">
         <div className='recipe-card-img-div'>
-          <img className="recipe-card-img" src="http://127.0.0.1:3000/uploads/ca2080db-afce-4f0a-9869-dda96f405ca2.png" ></img>
+          <img className="recipe-card-img" src={src_var} ></img>
         </div>
         <div className='recipe-card-content-div' >
           <div style={{ fontSize: '1.5rem', color: 'gray', wordWrap: 'break-word', width: '90%' }}><b>{props.feed.recipe_title}</b></div>

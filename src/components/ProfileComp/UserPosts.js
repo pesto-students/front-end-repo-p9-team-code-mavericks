@@ -19,7 +19,7 @@ const UserPosts = () => {
 
     // Fetch user info
     try {
-      const response = await fetch('http://127.0.0.1:3000/posts/allposts/' + user, {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/allposts/' + user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data

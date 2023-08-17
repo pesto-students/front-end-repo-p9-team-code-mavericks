@@ -47,7 +47,7 @@ export default function ProfilePage() {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/users/username/' + user, {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/username/' + user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -73,7 +73,7 @@ export default function ProfilePage() {
       setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/users/' + user + '/count/followers', {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/' + user + '/count/followers', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -99,7 +99,7 @@ export default function ProfilePage() {
       setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/users/' + user + '/count/following', {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/' + user + '/count/following', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -125,7 +125,7 @@ export default function ProfilePage() {
       setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/users/' + user + '/count/posts', {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/' + user + '/count/posts', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -151,7 +151,7 @@ export default function ProfilePage() {
       setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/users/' + user + '/count/bookmarks', {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/' + user + '/count/bookmarks', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -200,7 +200,7 @@ export default function ProfilePage() {
       setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/users/isfollowing/'+user, {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/isfollowing/'+user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -226,7 +226,7 @@ export default function ProfilePage() {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/users/follow/' + user, {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/follow/' + user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -251,7 +251,7 @@ export default function ProfilePage() {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/users/unfollow/'+user, {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/unfollow/'+user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

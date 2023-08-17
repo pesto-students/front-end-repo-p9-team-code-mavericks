@@ -91,7 +91,7 @@ const CreatePostPage = () => {
     });
     console.log('pic array ',recipePictures);
 
-    const response = await fetch('http://127.0.0.1:3000/posts/create', {
+    const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ const CreatePostPage = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:3000/posts/img/upload', {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/img/upload', {
         method: 'POST',
         headers: {
           'authorization': token,

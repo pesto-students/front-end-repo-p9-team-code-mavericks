@@ -60,7 +60,7 @@ const InterestsPage = () => {
       interestsArray.push('salads');
 
     try {
-      const url = `http://127.0.0.1:3000/users/intrests`;
+      const url = process.env.REACT_APP_WEBSITE_URL + '/users/intrests';
       const token = Cookies.get('token');
 
       const response = await fetch(url, {

@@ -28,7 +28,7 @@ const RecipeDetail = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/posts/getpost/' + id, {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/getpost/' + id, {
         method: 'GET',
         headers: {
           'authorization': token,
@@ -54,7 +54,7 @@ const RecipeDetail = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/posts/isliked/isbookmarked/' + id + '/' + Cookies.get('username'), {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/isliked/isbookmarked/' + id + '/' + Cookies.get('username'), {
         method: 'GET',
         headers: {
           'authorization': token,
@@ -79,7 +79,7 @@ const RecipeDetail = () => {
   const toogleLike = async () => {
 
     const flag = isLiked ? '0' : '1';
-    const url = 'http://127.0.0.1:3000/posts/like';
+    const url = process.env.REACT_APP_WEBSITE_URL + '/posts/like';
 
     const response = await fetch(url, {
       method: 'POST',
@@ -102,7 +102,7 @@ const RecipeDetail = () => {
   const toogleBookmark = async () => {
 
     const flag = isBookmarked ? '0' : '1';
-    const url = 'http://127.0.0.1:3000/posts/bookmark/' + postDetail.post._id + '/' + flag;
+    const url = process.env.REACT_APP_WEBSITE_URL + '/posts/bookmark/' + postDetail.post._id + '/' + flag;
     const response = await fetch(url, {
       method: 'GET',
       headers: {

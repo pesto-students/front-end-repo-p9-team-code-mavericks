@@ -46,7 +46,7 @@ const HomePage = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/posts/retrieve/' + pageNo, {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/retrieve/' + pageNo, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -75,7 +75,7 @@ const HomePage = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/posts/mostliked', {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/mostliked', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data

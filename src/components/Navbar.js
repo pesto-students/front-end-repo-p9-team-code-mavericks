@@ -50,7 +50,7 @@ const Navbar = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:3000/users/logout', {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/logout', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -98,7 +98,7 @@ const Navbar = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/posts/search/'+trimmedKeyword, {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/search/'+trimmedKeyword, {
         method: 'GET',
         headers: {
           'authorization': token,

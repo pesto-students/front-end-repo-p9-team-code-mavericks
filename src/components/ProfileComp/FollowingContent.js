@@ -13,7 +13,7 @@ const FollowingContent = () => {
   const fetchFollowingsList = async () => {
     try {
       const token = Cookies.get('token');
-      const response = await fetch('http://127.0.0.1:3000/users/followings/'+user, {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/followings/'+user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

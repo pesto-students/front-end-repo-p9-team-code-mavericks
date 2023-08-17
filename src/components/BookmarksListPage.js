@@ -12,7 +12,7 @@ const BookmarksListPage = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/posts/getmybookmarks', {
+      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/getmybookmarks', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
