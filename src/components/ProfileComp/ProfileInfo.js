@@ -5,6 +5,7 @@ import '../../css/profile_comp/profile_info.css';
 import Form from 'react-bootstrap/Form';
 import Cookies from 'js-cookie';
 import { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
 
 import {
   MDBCol,
@@ -26,8 +27,6 @@ import {
 
 import { useParams } from "react-router-dom";
 
-import waveImg from '../../img/ocean-wave3.svg';
-
 export default function ProfilePage() {
 
   const [userDetails, setUserDetails] = useState({});
@@ -39,7 +38,10 @@ export default function ProfilePage() {
   const [isContactVisible, setIsContactVisible] = useState(false);
   const [followersCnt, setFollowersCnt] = useState(0);
   const [followingCnt, setFollowingCnt] = useState(0);
-  
+  const [postsCnt, setPostsCnt] = useState(0);
+  const [bookmarksCnt, setBookmarksCnt] = useState(0);
+  const [isFollowing, setIsFollowing] = useState(false);
+
 
   const fetchUserDetails = async () => {
     try {
@@ -66,10 +68,12 @@ export default function ProfilePage() {
   };
 
   const fetchNumbers = async () => {
+    // Retrieve and set followers count.
     try {
+      setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch('http://127.0.0.1:3000/users/'+user+'/count/followers', {
+      const response = await fetch('http://127.0.0.1:3000/users/' + user + '/count/followers', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -77,8 +81,9 @@ export default function ProfilePage() {
         },
       });
 
-      if(!response.ok){
-        console.log("Error occured : "+data.error);
+      if (!response.ok) {
+        console.log("Error occured : " + data.error);
+        return;
       }
 
       const data = await response.json();
@@ -86,8 +91,87 @@ export default function ProfilePage() {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.error('Error fetching username:', error);
+      console.error('Error counting followers:', error);
     }
+
+    // Retrieve and set followings.
+    try {
+      setIsLoading(true);
+      const token = Cookies.get('token');
+
+      const response = await fetch('http://127.0.0.1:3000/users/' + user + '/count/following', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json', // Specify that you are sending JSON data
+          'authorization': token,
+        },
+      });
+
+      if (!response.ok) {
+        console.log("Error occured : " + data.error);
+        return;
+      }
+
+      const data = await response.json();
+      setFollowingCnt(data.following_count);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error('Error counting followings:', error);
+    }
+
+    // Retrieve and set number of posts.
+    try {
+      setIsLoading(true);
+      const token = Cookies.get('token');
+
+      const response = await fetch('http://127.0.0.1:3000/users/' + user + '/count/posts', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json', // Specify that you are sending JSON data
+          'authorization': token,
+        },
+      });
+
+      if (!response.ok) {
+        console.log("Error occured : " + data.error);
+        return;
+      }
+
+      const data = await response.json();
+      setPostsCnt(data.posts_count);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error('Error counting posts:', error);
+    }
+
+    // Retrieve number of bookmarks
+    try {
+      setIsLoading(true);
+      const token = Cookies.get('token');
+
+      const response = await fetch('http://127.0.0.1:3000/users/' + user + '/count/bookmarks', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': token,
+        },
+      });
+
+      if (!response.ok) {
+        console.log("Error occured : " + data.error);
+        return;
+      }
+
+      const data = await response.json();
+      setBookmarksCnt(data.bookmarks_count);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error('Error counting bookmarks:', error);
+    }
+
   };
 
   const followingVisibilityToggle = () => {
@@ -110,10 +194,90 @@ export default function ProfilePage() {
     setIsContactVisible(!isContactVisible);
   }
 
+  const getIsFollowing = async () => {
+
+    try {
+      setIsLoading(true);
+      const token = Cookies.get('token');
+
+      const response = await fetch('http://127.0.0.1:3000/users/isfollowing/'+user, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json', // Specify that you are sending JSON data
+          'authorization': token,
+        },
+      });
+
+      if (!response.ok) {
+        console.log("Error occured : " + data.error);
+        return;
+      }
+
+      const data = await response.json();
+      setIsFollowing(Boolean(data.is_following));
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error('Error getting if following user of not:', error);
+    }
+  }
+
+  const followUser = async() => {
+    try {
+      const token = Cookies.get('token');
+
+      const response = await fetch('http://127.0.0.1:3000/users/follow/' + user, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': token,
+        },
+      });
+
+      if (!response.ok) {
+        console.log("Error occured : " + data.error);
+        return;
+      }
+
+      const data = await response.json();
+      console.log(data.message);
+      setIsFollowing(true);
+    } catch(err) {
+      console.log('Error Ocuured '+err);
+    }
+  }
+
+  const unfollowUser = async() => {
+    try {
+      const token = Cookies.get('token');
+
+      const response = await fetch('http://127.0.0.1:3000/users/unfollow/'+user, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': token,
+        },
+      });
+
+      if (!response.ok) {
+        console.log("Error occured : " + data.error);
+        return;
+      }
+
+      const data = await response.json();
+      console.log(data.message);
+      setIsFollowing(false);
+    } catch(err) {
+      console.log('Error Ocuured '+err);
+    }
+  }
+
   useEffect(() => {
     fetchUserDetails();
     fetchNumbers();
+    getIsFollowing();
   }, []);
+
 
 
   return (
@@ -138,9 +302,8 @@ export default function ProfilePage() {
                 </p>
                 <div className="d-flex justify-content-center mb-2">
                   {
-                    Cookies.get('username') == userDetails.username?
-                      <MDBBtn>Unfollow</MDBBtn> :
-                      <MDBBtn>Follow</MDBBtn>
+                    Cookies.get('username') == userDetails.username ? <></ >:
+                      (isFollowing)? <Button variant='warning' onClick={unfollowUser}>Unfollow</Button> :<Button variant='warning' onClick={followUser}>Follow</Button>
                   }
                 </div>
               </MDBCardBody>
@@ -259,7 +422,7 @@ export default function ProfilePage() {
                     <MDBCardBody>
                       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                         <div>
-                          <span style={{ color: 'orange', fontSize: '5vh' }}><b>149</b></span>
+                          <span style={{ color: 'orange', fontSize: '5vh' }}><b>{followingCnt}</b></span>
                         </div>
                         <div>
                           <small style={{ color: 'gray' }}>Following</small>
@@ -277,7 +440,7 @@ export default function ProfilePage() {
                     <MDBCardBody>
                       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                         <div>
-                          <span style={{ color: 'orange', fontSize: '5vh' }}><b>122</b></span>
+                          <span style={{ color: 'orange', fontSize: '5vh' }}><b>{postsCnt}</b></span>
                         </div>
                         <div>
                           <small style={{ color: 'gray' }}>Posts</small>
@@ -292,7 +455,7 @@ export default function ProfilePage() {
                     <MDBCardBody>
                       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                         <div>
-                          <span style={{ color: 'orange', fontSize: '5vh' }}><b>566</b></span>
+                          <span style={{ color: 'orange', fontSize: '5vh' }}><b>{bookmarksCnt}</b></span>
                         </div>
                         <div>
                           <small style={{ color: 'gray' }}>Bookmarks</small>

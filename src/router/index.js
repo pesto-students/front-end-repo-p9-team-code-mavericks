@@ -7,8 +7,6 @@ import Navbar from '../components/Navbar';
 import SignupPage from '../components/SignupPage';
 import ProfilePage from '../components/ProfilePage'
 import Cookies from 'js-cookie';
-import Followers from '../components/Followers';
-import Followings from '../components/Followings';
 import InterestsPage from '../components/InterestsPage';
 import BookmarksListPage from '../components/BookmarksListPage'
 import CreatePostPage from '../components/CreatePostPage';
@@ -30,16 +28,6 @@ const AppRouter = () => {
         <Route
           path="/profile/:user"
           element={cookieUserName ? <ProfilePage /> : <HomePage />}
-        />
-
-        <Route
-          path="/followers/:ofuser"
-          element={cookieUserName ? <Followers /> : <HomePage />}
-        />
-
-        <Route
-          path="/followings/:ofuser"
-          element={cookieUserName ? <Followings /> : <HomePage />}
         />
 
         <Route

@@ -11,6 +11,7 @@ import unbookmarkImg from '../img/icons8-unbookmark.png'
 import '../css/recipe_detail.css';
 import watchIconImg from '../img/icons8-time-50.png';
 import dishIconImg from '../img/icons8-dish-50.png';
+import { async } from "q";
 
 const RecipeDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -119,11 +120,39 @@ const RecipeDetail = () => {
     setIsBookmarked(!isBookmarked);
   }
 
+  const fetchCalorie = async (arr) => {
+    console.log('recieved array ', arr);
+    try {
+      const query = arr.join(', ');
+      console.log('Query is '+query);
+      const response = await fetch('https://api.calorieninjas.com/v1/nutrition?query='+query, {
+        method: 'GET',
+        headers: {
+          'X-Api-Key': 'mExfJpxCGV03jot0LB4EMg==ICeMlRshmPCSSMj5'
+        },
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        console.log(data.error);
+        return;
+      }
+      console.log("CaloriAPI data "+JSON.stringify(data));
+    } catch (error) {
+      console.error('Error fetching feeds:', error);
+    }
+  }
+
 
   useEffect(() => {
     fetchPostDetails();
     isLikedAndIsBookmarked();
   }, []);
+
+  // useEffect(() => {
+  //   if(postDetail.post_in_detail)
+  //     fetchCalorie(postDetail.post_in_detail.recipe_ingredients);
+  // },[postDetail]);
 
   return (
     <>
