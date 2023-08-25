@@ -12,6 +12,7 @@ import '../css/homepage.css';
 import addRecipeImage from '../img/recipe_add_icon.png';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import Toast from 'react-bootstrap/Toast';
+import SocialMediaCard from './SocialMediaCard';
 
 const HomePage = () => {
   const username = useSelector((state) => state.username.username);
@@ -163,13 +164,14 @@ const HomePage = () => {
                       if (index === feeds.length - 1) {
                         return (
                           <div style={{}} key={feed._id} ref={lastRecipeCardRef}>
-                            <RecipeCard feed={feed} />
+                            <SocialMediaCard feed={feed} />
                           </div>
                         );
                       } else {
                         return (
-                          <div style={{ padding: '1%' }}>
-                            <RecipeCard key={feed._id} feed={feed} />
+                          <div key={feed .id} style={{ padding: '1%' }}>
+                            <SocialMediaCard feed={feed} />
+                            {/* <RecipeCard feed={feed} /> */}
                           </div>
                         );
                       }
