@@ -14,11 +14,14 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -75,8 +78,8 @@ const RecipeCard = (props) => {
   }
 
   const viewDetailedRecipe = () => {
-    console.log('view '+window.location.href);
-    window.location.href = '/post/'+props.feed._id;
+    console.log('view ' + window.location.href);
+    window.location.href = '/post/' + props.feed._id;
   }
 
   function capitalizeFirstLetter(word) {
@@ -89,7 +92,7 @@ const RecipeCard = (props) => {
     return word[0].toUpperCase();
   }
 
-  const src_var = process.env.REACT_APP_WEBSITE_URL+"/uploads/ca2080db-afce-4f0a-9869-dda96f405ca2.png"
+  const src_var = process.env.REACT_APP_WEBSITE_URL + "/uploads/ca2080db-afce-4f0a-9869-dda96f405ca2.png"
   console.log(src_var);
   return (
     <Container className="recipe-card-container">
@@ -102,20 +105,20 @@ const RecipeCard = (props) => {
             </Avatar>
           }
           action={
-            <IconButton aria-label="bookmark">
+            <IconButton aria-label="bookmark" onClick={toogleBookmark}>
               {
-              (isBookmarked) ?
-                <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleBookmark}>
-                  <img src={bookmarkImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
-                </div> :
-                <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleBookmark}>
-                  <img src={unbookmarkImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
-                </div>
-            }
+                (isBookmarked) ?
+                  <IconButton color="primary" aria-label="add a like">
+                    <BookmarkAddedIcon />
+                  </IconButton> :
+                  <IconButton color="primary" aria-label="add a like">
+                  <BookmarkBorderIcon/>
+                </IconButton> 
+              }
             </IconButton>
           }
           title={props.feed.recipe_title}
-          subheader={"by " +props.feed.author_username}
+          subheader={"by " + props.feed.author_username}
         />
         <CardMedia
           component="img"
@@ -123,51 +126,48 @@ const RecipeCard = (props) => {
           image={src_var}
           alt="Paella dish"
         />
-        
+
         <CardContent>
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-        <div style={{display: 'flex', justifyContent: 'space-around'}}>
-        <div style={{fontSize: '0.8rem', color: 'blue'}}>10 views</div>&nbsp;
-        <div style={{fontSize: '1rem', color: 'blue'}}> | </div>&nbsp;
-        <div style={{fontSize: '0.8rem', color: 'blue'}}>{likesCnt + ' Likes'}</div>
-        </div>
-        <div style={{fontSize: '0.6rem', color: 'blue'}}>26 July 2023</div>
-        </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+              <div style={{ fontSize: '0.8rem', color: 'blue' }}>10 views</div>&nbsp;
+              <div style={{ fontSize: '1rem', color: 'blue' }}> | </div>&nbsp;
+              <div style={{ fontSize: '0.8rem', color: 'blue' }}>{likesCnt + ' Likes'}</div>
+            </div>
+            <div style={{ fontSize: '0.6rem', color: 'blue' }}>26 July 2023</div>
+          </div>
           <Typography variant="body2" color="text.secondary">
             {props.feed.recipe_description}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to likes"  onClick={toogleLike}>
             {
               (!isLiked) ?
                 <>
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleLike}>
-                      <img src={unlikeImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
-                    </div>
-                    {/* <div></div>
-                    <div style={{ color: 'gray', fontSize: '0.8rem' }}>{likesCnt} Likes.</div> */}
+                    <IconButton color="error" aria-label="add a like" >
+                      <FavoriteBorderIcon />
+                    </IconButton>
                   </div>
                 </>
                 :
                 <>
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleLike}>
-                      <img src={likeImg} alt='like' style={{ maxHeight: '100%', maxWidth: '100%', height: '100%', width: '100%' }} />
-                    </div>
-                    {/* <div></div>
-                    <div style={{ color: 'gray', fontSize: '0.8rem' }}>{likesCnt} Likes.</div> */}
+                    <IconButton color="error" aria-label="add a like">
+                      <FavoriteIcon />
+                    </IconButton>
                   </div>
                 </>
             }
           </IconButton>
-          <IconButton aria-label="viewMore">
-          <div onClick={viewDetailedRecipe} ><Button style={{ backgroundColor: 'orange', color: 'white', borderRadius: '10px', border: '0px' }}>View</Button></div>
+          <IconButton aria-label="viewMore" onClick={viewDetailedRecipe} >
+            <div><Button style={{ backgroundColor: 'orange', color: 'white', borderRadius: '10px', border: '0px' }}>View</Button></div>
           </IconButton>
         </CardActions>
       </Card>
-        {/* <div className='recipe-card-img-div'>
+      
+      {/* <div className='recipe-card-img-div'>
           <img className="recipe-card-img" src={src_var} ></img>
         </div>
         <div className='recipe-card-content-div' >
@@ -197,7 +197,7 @@ const RecipeCard = (props) => {
             }
             <div onClick={viewDetailedRecipe} ><Button style={{ backgroundColor: 'orange', color: 'white', borderRadius: '10px', border: '0px' }}>View</Button></div>
           </div> */}
-          {/* <div className="recipe-card-bookmark-icon">
+      {/* <div className="recipe-card-bookmark-icon">
             {
               (isBookmarked) ?
                 <div style={{ cursor: 'pointer', width: '4vh', height: '4vh', borderRadius: '25px', }} onClick={toogleBookmark}>
@@ -209,7 +209,7 @@ const RecipeCard = (props) => {
             }
           </div>
           <div className='recipe-card-author-tag'><small>Author: <i style={{ color: 'blue' }}>{props.feed.author_username}</i></small></div> */}
-        {/* </div> */}
+      {/* </div> */}
       {/* </div> */}
     </Container>
   );

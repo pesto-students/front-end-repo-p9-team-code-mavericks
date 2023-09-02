@@ -73,11 +73,6 @@ const Navbar = () => {
     }
   };
 
-  const handleProfileClick = () => {
-    window.location.href = '/profile/' + Cookies.get('username');
-    return;
-  };
-
   const activateSearchBarClick = () => {
     setNavHeight(getNavHeight());
     setIsSearchBarClicked(true);
@@ -212,7 +207,7 @@ const Navbar = () => {
               </div>
               <div><Link className='nav-links' to='/'  onClick={deactivateSearchBarClicked} >Home</Link></div>
               <div><Link className='nav-links' to='/bookmarks'  onClick={deactivateSearchBarClicked}>Bookmarks</Link></div>
-              <div><Link className='nav-links' onClick={handleProfileClick}>Profile</Link></div>
+              <div><Link className='nav-links' to={'/profile/' + Cookies.get('username')} >Profile</Link></div>
               <div><Link className='nav-links' onClick={handleLogoutClick}>Logout</Link></div>
 
             </>
