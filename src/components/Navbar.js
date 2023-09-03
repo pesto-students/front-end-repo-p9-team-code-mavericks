@@ -4,7 +4,7 @@ import { logout } from '../store/usernameSlice';
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import '../css/navbar.css';
-import seachIconImg from "../img/icons8-search.svg"
+import seachIconImg from "../img/icons8-search.svg";
 import ListGroup from "react-bootstrap/ListGroup";
 
 const Navbar = () => {
@@ -119,6 +119,14 @@ const Navbar = () => {
     }
   }
 
+  const goToPage = (result) => {
+    console.log(result);
+    if(result.username && result.username !== '')
+      window.location.href = '/profile/'+result.username;
+    else if(result._id && result._id !== '')
+      window.location.href = '/post/'+result._id;
+  }
+
   useEffect(()=>{
     setSearchResults([]);
     const trimmedKeyword = keyword.trim();
@@ -133,14 +141,6 @@ const Navbar = () => {
 
   }, [keyword]);
 
-  const goToPage = (result) => {
-    console.log(result);
-    if(result.username && result.username !== '')
-      window.location.href = '/profile/'+result.username;
-    else if(result._id && result._id !== '')
-      window.location.href = '/post/'+result._id;
-  }
-
   return (
     <>
       <nav className={`desk-nav ${scrolled ? 'scrolled' : ''}`} ref={navRef}>
@@ -149,7 +149,7 @@ const Navbar = () => {
           style={
             {
               overflow: 'auto',
-              zIndex: '2',
+              zIndex: '100',
               backgroundColor: 'white',
               height: 'auto', width: '50%',
               position: 'absolute',
