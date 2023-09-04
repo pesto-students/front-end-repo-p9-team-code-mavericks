@@ -12,6 +12,7 @@ import '../css/homepage.css';
 import addRecipeImage from '../img/recipe_add_icon.png';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import Toast from 'react-bootstrap/Toast';
+import MobileNavbar from '../components/MobileNavbar';
 
 const HomePage = () => {
   const username = useSelector((state) => state.username.username);
@@ -25,6 +26,11 @@ const HomePage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [isLoginFormActive, setIsLoginFormActive] = useState(true);
   const [mostLikedPosts, setMostLikedPosts] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const checkScreenSize = () => {
+    setIsMobile(window.innerWidth <= 767);
+  };
 
   const handleSlideClick = () => {
     setIsLoginFormActive(!isLoginFormActive);
@@ -99,6 +105,10 @@ const HomePage = () => {
   }
 
   useEffect(() => {
+    checkScreenSize();
+  },[]);
+
+  useEffect(() => {
     if (shouldFetch) {
       fetchUserFeeds();
       fetchMostLikedPosts();
@@ -147,103 +157,104 @@ const HomePage = () => {
     }
   }
 
-
-
   return (
-    <div>
-      {cookieUserName ?
-        firstTimeLogin == 'true' ? <InterestsPage />
-          :
-          (
-            <>
-              <div className='homepage-flex-div'>
-                <div className='feeds-flex-div'>
-                  {feeds && feeds.length > 0 ? (
-                    feeds.map((feed, index) => {
-                      if (index === feeds.length - 1) {
-                        return (
-                          <div style={{}} key={feed._id} ref={lastRecipeCardRef}>
-                            <RecipeCard feed={feed} />
-                          </div>
-                        );
-                      } else {
-                        return (
-                          <div style={{ padding: '1%' }}>
-                            <RecipeCard key={feed._id} feed={feed} />
-                          </div>
-                        );
-                      }
-                    })
-                  ) : (
-                    <>Nothing to show!</>
-                  )}
-                  {isLoading && <Spinner animation="border" variant="warning" />}
-                </div>
-                <div className='most-liked-flex-div'>
-                  <div className='most-liked-text'><b>Most Liked</b></div>
-                  {
-                    mostLikedPosts.map((post) => {
+    <>
+      {isMobile && Cookies.get('username') ?<MobileNavbar />: <></>}
+      <div>
+    {cookieUserName ?
+      firstTimeLogin == 'true' ? <InterestsPage />
+        :
+        (
+          <>
+            <div className='homepage-flex-div'>
+              <div className='feeds-flex-div'>
+                {feeds && feeds.length > 0 ? (
+                  feeds.map((feed, index) => {
+                    if (index === feeds.length - 1) {
                       return (
-                        <ToastContainer
-                          className="position-static toast-cont"
-                          key={post._id}
-                          style={{ zIndex: 1}}
-                        >
-                          <Toast className='actual-toast'>
-                            <Toast.Header closeButton={false}>
-                              <img
-                                src=""
-                                className="rounded me-2"
-                                alt=""
-                              />
-                              <strong className="me-auto">Author: &nbsp;<i style={{ color: 'blue', cursor:'pointer'}} onClick={goToProfile}>{post.author_username}</i></strong>
-                              <small>{createdTime(post.createdAt)}</small>
-                            </Toast.Header>
-                            <Toast.Body>
-                              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <div value={post._id} style={{ width: '80%'}}>{post.recipe_title}</div>
-                                <div style={{ width: '20%' }}>{post.recipe_likes} <span style={{ color: 'blue' }}>Likes</span></div>
-                              </div>
+                        <div style={{}} key={feed._id} ref={lastRecipeCardRef}>
+                          <RecipeCard feed={feed} />
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div style={{ padding: '1%' }}>
+                          <RecipeCard key={feed._id} feed={feed} />
+                        </div>
+                      );
+                    }
+                  })
+                ) : (
+                  <>Nothing to show!</>
+                )}
+                {isLoading && <Spinner animation="border" variant="warning" />}
+              </div>
+              <div className='most-liked-flex-div'>
+                <div className='most-liked-text'><b>Most Liked</b></div>
+                {
+                  mostLikedPosts.map((post) => {
+                    return (
+                      <ToastContainer
+                        className="position-static toast-cont"
+                        key={post._id}
+                        style={{ zIndex: 1}}
+                      >
+                        <Toast className='actual-toast'>
+                          <Toast.Header closeButton={false}>
+                            <img
+                              src=""
+                              className="rounded me-2"
+                              alt=""
+                            />
+                            <strong className="me-auto">Author: &nbsp;<i style={{ color: 'blue', cursor:'pointer'}} onClick={goToProfile}>{post.author_username}</i></strong>
+                            <small>{createdTime(post.createdAt)}</small>
+                          </Toast.Header>
+                          <Toast.Body>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                              <div value={post._id} style={{ width: '80%'}}>{post.recipe_title}</div>
+                              <div style={{ width: '20%' }}>{post.recipe_likes} <span style={{ color: 'blue' }}>Likes</span></div>
+                            </div>
 
-                            </Toast.Body>
-                          </Toast>
-                        </ToastContainer>
-                      )
-                    })
-                  }
+                          </Toast.Body>
+                        </Toast>
+                      </ToastContainer>
+                    )
+                  })
+                }
 
-                </div>
-                <div className='create-post-flex-div'>
-                  <div style={{ width: '95%', alignItems: 'center', backgroundColor: 'rgb(231, 8, 142)', height: 'auto', color: 'white', borderRadius: '14px', textAlign: 'center', padding: '5% 3% 3% 3%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                    <div style={{ fontSize: '1.5rem' }}>
-                      <b>Lets Create Recipe</b>
-                    </div>
-                    <div className='floating-add-post-icon' style={{ cursor: 'pointer', borderRadius: '25px', }} onClick={handleCreateRecipeClicked}>
-                      <label
-                        className='add-post-img-icon'
-                        style={{ backgroundImage: `url(${addRecipeImage})`, borderRadius: '25px' }}
-                      ></label>
-                    </div >
+              </div>
+              <div className='create-post-flex-div'>
+                <div style={{ width: '95%', alignItems: 'center', backgroundColor: 'rgb(231, 8, 142)', height: 'auto', color: 'white', borderRadius: '14px', textAlign: 'center', padding: '5% 3% 3% 3%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                  <div style={{ fontSize: '1.5rem' }}>
+                    <b>Lets Create Recipe</b>
                   </div>
+                  <div className='floating-add-post-icon' style={{ cursor: 'pointer', borderRadius: '25px', }} onClick={handleCreateRecipeClicked}>
+                    <label
+                      className='add-post-img-icon'
+                      style={{ backgroundImage: `url(${addRecipeImage})`, borderRadius: '25px' }}
+                    ></label>
+                  </div >
                 </div>
-              </div>
-            </>
-
-          ) : (
-          <Container className='login-signup-container'>
-            <div className='login-signup-flexbox'>
-              <div className={isLoginFormActive ? "login-signup-div active" : "login-signup-div"}>
-                {isLoginFormActive ? <LoginContent handleSlideClick={handleSlideClick} /> : <SignupContent handleSlideClick={handleSlideClick} />}
-              </div>
-              <div className={
-                isLoginFormActive ? "wallpaper-div active2 wallpaper-img2" : "wallpaper-div wallpaper-img1"
-              }>
-                <div style={{ backgroundImage: 'linear-gradient(to right, orange, #e7088e)', position: 'absolute', width: '100%', height: '80vh', opacity: '40%', zIndex: '2', borderRadius: '13px' }}></div>
               </div>
             </div>
-          </Container>
-        )}
-    </div>
+          </>
+
+        ) : (
+        <Container className='login-signup-container'>
+          <div className='login-signup-flexbox'>
+            <div className={isLoginFormActive ? "login-signup-div active" : "login-signup-div"}>
+              {isLoginFormActive ? <LoginContent handleSlideClick={handleSlideClick} /> : <SignupContent handleSlideClick={handleSlideClick} />}
+            </div>
+            <div className={
+              isLoginFormActive ? "wallpaper-div active2 wallpaper-img2" : "wallpaper-div wallpaper-img1"
+            }>
+              <div style={{ backgroundImage: 'linear-gradient(to right, orange, #e7088e)', position: 'absolute', width: '100%', height: '80vh', opacity: '40%', zIndex: '2', borderRadius: '13px' }}></div>
+            </div>
+          </div>
+        </Container>
+      )}
+      </div>
+    </>
   );
 };
 

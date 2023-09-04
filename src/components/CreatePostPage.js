@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import CloseButton from 'react-bootstrap/CloseButton';
@@ -9,8 +9,7 @@ import "../css/create_post.css";
 import bubbleSvg from "../img/svgtest.svg"
 import Cookies from "js-cookie";
 import UploadImgComponent from "./UploadImgComponent";
-
-
+import MobileNavbar from '../components/MobileNavbar';
 
 const CreatePostPage = () => {
 
@@ -25,6 +24,11 @@ const CreatePostPage = () => {
   const switchRef = useRef(false);
   const description = useRef('');
   const cookingTime = useRef('');
+  const [isMobile, setIsMobile] = useState(false);
+
+  const checkScreenSize = () => {
+    setIsMobile(window.innerWidth <= 767);
+  };
 
   const randomNumberGenerator = () => {
     return Math.floor(Math.random() * 1000000000000); // Generates a random 12-digit number
@@ -151,9 +155,14 @@ const CreatePostPage = () => {
     setIsPublic(switchRef.current.checked);
   }
 
+  useEffect(() => {
+    checkScreenSize();
+  }, []);
 
   return (
     <>
+      {isMobile?<MobileNavbar />: <></>}
+
       <h3>Create a post page</h3>
       <div className="create-post-outer-container">
         <Container >

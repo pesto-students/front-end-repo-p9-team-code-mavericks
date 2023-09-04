@@ -3,10 +3,16 @@ import "../css/bookmarks.css";
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import RecipeCard from './RecipeCard';
+import MobileNavbar from '../components/MobileNavbar';
 
 const BookmarksListPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [bookmarks, setBookmarks] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const checkScreenSize = () => {
+    setIsMobile(window.innerWidth <= 767);
+  };
 
   const fetchBookmarks = async () => {
     try {
@@ -36,11 +42,14 @@ const BookmarksListPage = () => {
   };
 
   useEffect(() => {
+    checkScreenSize();
     fetchBookmarks();
   }, []);
 
   return (
-    <Container className='bookmark-container'>
+    <>
+    {isMobile?<MobileNavbar />: <></>}
+      <Container className='bookmark-container'>
       <div className="" style={{paddingTop:'1%', display:'flex', flexDirection:'column', gap:'1vh', justifyContent:'space-around', alignItems:'center'}}>
         {isLoading ? (
           <p>Loading...</p>
@@ -51,6 +60,7 @@ const BookmarksListPage = () => {
         )}
       </div>
     </Container>
+    </>
   );
 }
 

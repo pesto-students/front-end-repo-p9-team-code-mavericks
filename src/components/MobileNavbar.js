@@ -257,7 +257,6 @@ export default function LabelBottomNavigation() {
         </div>
       </div>
 
-
       <BottomNavigation className='mob-nav' style={{ width: '100%', position: 'fixed', bottom: '0', zIndex: '100', height: '6vh' }} value={value} onChange={handleChange}>
         <BottomNavigationAction
           href='/'

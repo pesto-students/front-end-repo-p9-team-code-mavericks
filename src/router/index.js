@@ -17,13 +17,6 @@ const AppRouter = () => {
   const username = useSelector((state) => state.username.username);
   const cookieUserName = Cookies.get('username');
   const [isMobile, setIsMobile] = useState(false);
-  const [mobActiveTab, setMobActiveTab] = useState('home');
-
-  const updateMobActiveTab = (tabName) => {
-    console.log('This is value '+tabName);
-    setMobActiveTab(tabName);
-  };
-
 
   const checkScreenSize = () => {
     setIsMobile(window.innerWidth <= 767);
@@ -40,7 +33,7 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       {cookieUserName ?
-       isMobile ? <MobileNavbar /> : <Navbar />: <></>
+       isMobile ? <></> : <Navbar />: <></>
       }
       <Routes>
         <Route

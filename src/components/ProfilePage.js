@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
 import '../css/profile_page.css';
 import ProfileInfo from '../components/ProfileComp/ProfileInfo';
-
+import MobileNavbar from '../components/MobileNavbar';
 import EditProf from "./ProfileComp/EditProf";
 import FollowersContent from "./ProfileComp/FollowersContent";
 import FollowingContent from "./ProfileComp/FollowingContent";
@@ -15,6 +15,12 @@ const ProfilePage = () => {
   const [activeLink, setActiveLink] = useState('profInfo');
   const [activeComponent, setActiveComponent] = useState(<ProfileInfo />);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  const checkScreenSize = () => {
+    setIsMobile(window.innerWidth <= 767);
+  };
 
   const compMap = {
     profInfo: <ProfileInfo />,
@@ -59,7 +65,9 @@ const ProfilePage = () => {
     setActiveComponent(compMap[val]);
   }
 
-
+  useEffect(() => {
+    checkScreenSize();
+  },[]);
 
   return (
     <>
@@ -94,6 +102,7 @@ const ProfilePage = () => {
 
         // </>
         <>
+          {isMobile?<MobileNavbar />: <></>}
           <div style={{ display: 'flex' }}>
             <div style={{ width: '18%', height: '100vh', backgroundColor: 'orange', position: 'fixed' }}>
               <div style={{ flexDirection: 'column', display: 'flex', padding: '5%' }}>
