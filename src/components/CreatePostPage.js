@@ -10,6 +10,7 @@ import bubbleSvg from "../img/svgtest.svg"
 import Cookies from "js-cookie";
 import UploadImgComponent from "./UploadImgComponent";
 import MobileNavbar from '../components/MobileNavbar';
+import BackNavbar from "./BackNavbar";
 
 const CreatePostPage = () => {
 
@@ -161,9 +162,7 @@ const CreatePostPage = () => {
 
   return (
     <>
-      {isMobile?<MobileNavbar />: <></>}
-
-      <h3>Create a post page</h3>
+      {isMobile?<BackNavbar />: <></>}
       <div className="create-post-outer-container">
         <Container >
           <div className="create-post-divs" style={{boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',borderRadius: '20px',padding: '2.5%'}}>

@@ -18,7 +18,7 @@ import seachIconImg from "../img/icons8-search.svg";
 export default function LabelBottomNavigation() {
   const [value, setValue] = React.useState('');
   const dispatch = useDispatch();
-  const [isSticky, setIsSticky] = useState(false);
+  const [isSticky, setIsSticky] = useState(true);
   const [prevScrollY, setPrevScrollY] = useState(0);
   const searchBar = useRef('');
   const [keyword, setKeyword] = useState('');
@@ -119,8 +119,12 @@ export default function LabelBottomNavigation() {
       setIsSearchResultsFixed(true);
     }
 
-    if (currentScrollY == 0)
-      setIsSticky(false);
+    if (currentScrollY == 0){
+      navRef.current.style.position = 'relative';
+    }
+    else{
+      navRef.current.style.position = 'fixed';
+    }
 
     setPrevScrollY(currentScrollY);
   };
@@ -144,7 +148,8 @@ export default function LabelBottomNavigation() {
 
   useEffect(() => {
     setNavHeight(getNavHeight());
-  });
+    navRef.current.style.position = 'relative';
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -187,7 +192,8 @@ export default function LabelBottomNavigation() {
       <div className='mob-top-nav'
         ref={navRef}
         style={{
-          position: isSticky? 'fixed': 'relative',
+          transform: isSticky? 'translateY(0%)': 'translateY(-100%)',
+          position: 'fixed',
           display: 'flex',
           justifyContent: 'space-evenly',
           alignItems: 'center',
@@ -196,8 +202,7 @@ export default function LabelBottomNavigation() {
           backgroundColor: 'orange',
           width: '100%',
           zIndex: '100',
-          transition: 'position 1s ease-in-out',
-          transitionDelay: '1s'
+          transition: 'transform 0.3s ease-in-out',
         }}
       >
         <div className={!isSearchBarClicked ? 'mob-search-results-hidden' : 'mob-search-results'}

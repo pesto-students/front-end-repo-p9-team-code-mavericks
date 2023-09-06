@@ -11,7 +11,7 @@ import unbookmarkImg from '../img/icons8-unbookmark.png'
 import '../css/recipe_detail.css';
 import watchIconImg from '../img/icons8-time-50.png';
 import dishIconImg from '../img/icons8-dish-50.png';
-import { async } from "q";
+import BackNavbar from "./BackNavbar";
 
 const RecipeDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +21,11 @@ const RecipeDetail = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCnt, setLikesCnt] = useState(0);
   const token = Cookies.get('token');
+  const [isMobile, setIsMobile] = useState(false);
 
+  const checkScreenSize = () => {
+    setIsMobile(window.innerWidth <= 767);
+  };
 
   const fetchPostDetails = async () => {
     setIsLoading(true);
@@ -147,6 +151,7 @@ const RecipeDetail = () => {
   useEffect(() => {
     fetchPostDetails();
     isLikedAndIsBookmarked();
+    checkScreenSize();
   }, []);
 
   // useEffect(() => {
@@ -156,7 +161,8 @@ const RecipeDetail = () => {
 
   return (
     <>
-      {console.log(JSON.stringify(postDetail))}
+      {/* {console.log(JSON.stringify(postDetail))} */}
+      {isMobile?<BackNavbar />: <></>}
       <div style={{ display: 'flex', position: 'relative', padding:'2%'}}>
 
         <div className="right-half-div">
