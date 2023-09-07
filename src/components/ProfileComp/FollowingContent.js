@@ -42,20 +42,18 @@ const FollowingContent = () => {
 
   return (
     <Container>
-      <div style={{borderRadius:'10px', backgroundColor:'white', padding: '1%', boxShadow:'0 1px 4px 0 rgba(0, 0, 0, 0.4), 0 1px 8px 0 rgba(0, 0, 0, 0.2)'}}>
-        <i style={{color:'blue'}}>{Cookies.get('username')} / <span>followings</span></i>
+      <div style={{backgroundColor:'white', padding: '1%', boxShadow:'0 1px 4px 0 rgba(0, 0, 0, 0.4), 0 1px 8px 0 rgba(0, 0, 0, 0.2)'}}>
+        <i style={{color:'blue'}}>{user} / <span>followings</span></i>
       </div>
       {isLoading ? (
         <p>Loading...</p>
       ) : !followingsList || followingsList.length === 0? (
         !errorMsg? <p>No followings</p>: <ErrorMsgBox errorMsg={errorMsg}/>
-      ) : (
-        <ul>
-          {followingsList.map((user, index) => (
+      ) : 
+          followingsList.map((user, index) => (
             <UserListViewCard key={index} user={user} />
-          ))}
-        </ul>
-      )}
+          ))
+        }
     </Container>
   );
 

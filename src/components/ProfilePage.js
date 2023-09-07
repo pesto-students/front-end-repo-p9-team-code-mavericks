@@ -67,7 +67,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     checkScreenSize();
-  },[]);
+  }, []);
 
   return (
     <>
@@ -102,9 +102,9 @@ const ProfilePage = () => {
 
         // </>
         <>
-          {isMobile?<MobileNavbar />: <></>}
+          {isMobile ? <MobileNavbar /> : <></>}
           <div style={{ display: 'flex' }}>
-            <div style={{ width: '18%', height: '100vh', backgroundColor: 'orange', position: 'fixed' }}>
+            <div style={{ display: isMobile? 'none': 'block', width: '18%', height: '100vh', backgroundColor: 'orange', position: 'fixed' }}>
               <div style={{ flexDirection: 'column', display: 'flex', padding: '5%' }}>
                 <div
                   className={activeLink == 'profInfo' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
@@ -143,7 +143,7 @@ const ProfilePage = () => {
 
               </div>
             </div>
-            <div style={{ marginLeft: '18%', width: '100%', padding: '1%'}}>
+            <div style={{ marginLeft: isMobile?'0%': '18%', width: '100%', padding: '1%' }}>
               {activeComponent}
             </div>
           </div>

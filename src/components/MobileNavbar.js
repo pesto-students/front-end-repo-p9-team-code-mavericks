@@ -200,7 +200,7 @@ export default function LabelBottomNavigation() {
           alignItems: 'center',
           padding: '1%',
           top: '0',
-          backgroundColor: 'orange',
+          backgroundImage: 'linear-gradient(to right, orange , #e7088e)',
           width: '100%',
           zIndex: '100',
           transition: 'transform 0.3s ease-in-out',
