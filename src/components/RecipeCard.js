@@ -24,7 +24,7 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
+import { BACKEND_URL } from "../global";
 
 const RecipeCard = (props) => {
   const [isBookmarked, setIsBookmarked] = useState(props.feed.bookmarked);
@@ -36,7 +36,7 @@ const RecipeCard = (props) => {
   const toogleLike = async () => {
 
     const flag = isLiked ? '0' : '1';
-    const url = process.env.REACT_APP_WEBSITE_URL + '/posts/like';
+    const url = BACKEND_URL + '/posts/like';
 
     const response = await fetch(url, {
       method: 'POST',
@@ -59,7 +59,7 @@ const RecipeCard = (props) => {
   const toogleBookmark = async () => {
 
     const flag = isBookmarked ? '0' : '1';
-    const url = process.env.REACT_APP_WEBSITE_URL + '/posts/bookmark/' + props.feed._id + '/' + flag;
+    const url = BACKEND_URL + '/posts/bookmark/' + props.feed._id + '/' + flag;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -92,7 +92,7 @@ const RecipeCard = (props) => {
     return word[0].toUpperCase();
   }
 
-  const src_var = process.env.REACT_APP_WEBSITE_URL + "/uploads/ca2080db-afce-4f0a-9869-dda96f405ca2.png"
+  const src_var = BACKEND_URL + "/uploads/ca2080db-afce-4f0a-9869-dda96f405ca2.png"
   console.log(src_var);
   return (
     <Container className="recipe-card-container">

@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import UploadImgComponent from "./UploadImgComponent";
 import MobileNavbar from '../components/MobileNavbar';
 import BackNavbar from "./BackNavbar";
+import { BACKEND_URL } from "../global";
 
 const CreatePostPage = () => {
 
@@ -96,7 +97,7 @@ const CreatePostPage = () => {
     });
     console.log('pic array ',recipePictures);
 
-    const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/create', {
+    const response = await fetch(BACKEND_URL + '/posts/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -131,7 +132,7 @@ const CreatePostPage = () => {
     }
 
     try {
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/img/upload', {
+      const response = await fetch(BACKEND_URL + '/posts/img/upload', {
         method: 'POST',
         headers: {
           'authorization': token,

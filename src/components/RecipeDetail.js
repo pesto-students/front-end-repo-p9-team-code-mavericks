@@ -12,6 +12,7 @@ import '../css/recipe_detail.css';
 import watchIconImg from '../img/icons8-time-50.png';
 import dishIconImg from '../img/icons8-dish-50.png';
 import BackNavbar from "./BackNavbar";
+import { BACKEND_URL } from "../global";
 
 const RecipeDetail = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +33,7 @@ const RecipeDetail = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/getpost/' + id, {
+      const response = await fetch(BACKEND_URL + '/posts/getpost/' + id, {
         method: 'GET',
         headers: {
           'authorization': token,
@@ -58,7 +59,7 @@ const RecipeDetail = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/isliked/isbookmarked/' + id + '/' + Cookies.get('username'), {
+      const response = await fetch(BACKEND_URL + '/posts/isliked/isbookmarked/' + id + '/' + Cookies.get('username'), {
         method: 'GET',
         headers: {
           'authorization': token,
@@ -83,7 +84,7 @@ const RecipeDetail = () => {
   const toogleLike = async () => {
 
     const flag = isLiked ? '0' : '1';
-    const url = process.env.REACT_APP_WEBSITE_URL + '/posts/like';
+    const url = BACKEND_URL + '/posts/like';
 
     const response = await fetch(url, {
       method: 'POST',
@@ -106,7 +107,7 @@ const RecipeDetail = () => {
   const toogleBookmark = async () => {
 
     const flag = isBookmarked ? '0' : '1';
-    const url = process.env.REACT_APP_WEBSITE_URL + '/posts/bookmark/' + postDetail.post._id + '/' + flag;
+    const url = BACKEND_URL + '/posts/bookmark/' + postDetail.post._id + '/' + flag;
     const response = await fetch(url, {
       method: 'GET',
       headers: {

@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import UserListViewCard from "../UserListViewCard";
 import { useParams } from "react-router-dom";
 import ErrorMsgBox from "../ErrorMsgBox";
+import { BACKEND_URL } from "../../global";
 
 const FollowersContent = () => {
 
@@ -14,7 +15,7 @@ const FollowersContent = () => {
   const fetchFollowersList = async () => {
     try {
       const token = Cookies.get('token');
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/followers/'+user, {
+      const response = await fetch(BACKEND_URL + '/users/followers/'+user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

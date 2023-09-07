@@ -3,6 +3,7 @@ import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import "../css/interests_selector.css";
 import Cookies from "js-cookie";
+import { BACKEND_URL } from "../global";
 
 const InterestsPage = () => {
   const [isGreenVegiesActive, setIsGreenVegiesActive] = useState(false);
@@ -60,7 +61,7 @@ const InterestsPage = () => {
       interestsArray.push('salads');
 
     try {
-      const url = process.env.REACT_APP_WEBSITE_URL + '/users/intrests';
+      const url = BACKEND_URL + '/users/intrests';
       const token = Cookies.get('token');
 
       const response = await fetch(url, {

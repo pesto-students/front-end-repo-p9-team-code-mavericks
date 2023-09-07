@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import { Button } from "react-bootstrap";
 import "../css/signupPage.css";
+import { BACKEND_URL } from "../global";
 // import { url } from "inspector";
 
 const SignupPage = () => {
@@ -51,7 +52,7 @@ const SignupPage = () => {
         return;
       }
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + "/signup", {
+      const response = await fetch(BACKEND_URL + "/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Specify that you are sending JSON data

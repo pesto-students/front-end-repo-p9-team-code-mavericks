@@ -14,6 +14,7 @@ import { ListGroup } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import '../css/mobile_navbar.css';
 import seachIconImg from "../img/icons8-search.svg";
+import { BACKEND_URL } from "../global";
 
 export default function LabelBottomNavigation() {
   const [value, setValue] = React.useState('');
@@ -34,7 +35,7 @@ export default function LabelBottomNavigation() {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/search/' + trimmedKeyword, {
+      const response = await fetch(BACKEND_URL + '/posts/search/' + trimmedKeyword, {
         method: 'GET',
         headers: {
           'authorization': token,
@@ -84,7 +85,7 @@ export default function LabelBottomNavigation() {
     }
 
     try {
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/logout', {
+      const response = await fetch(BACKEND_URL + '/users/logout', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -119,10 +120,10 @@ export default function LabelBottomNavigation() {
       setIsSearchResultsFixed(true);
     }
 
-    if (currentScrollY == 0){
+    if (currentScrollY == 0) {
       navRef.current.style.position = 'relative';
     }
-    else{
+    else {
       navRef.current.style.position = 'fixed';
     }
 
@@ -192,7 +193,7 @@ export default function LabelBottomNavigation() {
       <div className='mob-top-nav'
         ref={navRef}
         style={{
-          transform: isSticky? 'translateY(0%)': 'translateY(-100%)',
+          transform: isSticky ? 'translateY(0%)' : 'translateY(-100%)',
           position: 'fixed',
           display: 'flex',
           justifyContent: 'space-evenly',
@@ -213,7 +214,7 @@ export default function LabelBottomNavigation() {
               zIndex: '99',
               backgroundColor: 'white',
               position: 'fixed',
-              top: isSearchResultsFixed? `${navHeight}px`: '0',
+              top: isSearchResultsFixed ? `${navHeight}px` : '0',
               opacity: '100%',
             }
           }>
@@ -264,13 +265,6 @@ export default function LabelBottomNavigation() {
 
       <BottomNavigation className='mob-nav' style={{ width: '100%', position: 'fixed', bottom: '0', zIndex: '100', height: '6vh' }} value={value} onChange={handleChange}>
         <BottomNavigationAction
-          href='/'
-          style={{ width: '25%' }}
-          label="Home"
-          value="home"
-          icon={<Link to='/' style={{ color: value === 'home' ? 'orange' : 'gray' }}><HomeIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'home' ? '5rem' : '', padding: value === 'home' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'home' ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '', }} /></Link>}
-        />
-        <BottomNavigationAction
           href='bookmarks'
           style={{ width: '20%' }}
           label="Bookmarks"
@@ -282,6 +276,13 @@ export default function LabelBottomNavigation() {
           label="Post"
           value="post"
           icon={<Link to='/createpost' style={{ color: value === 'post' ? 'orange' : 'gray' }}><AddCircleSharpIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'post' ? '5rem' : '', padding: value === 'post' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'post' ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '', }} /></Link>}
+        />
+        <BottomNavigationAction
+          href='/'
+          style={{ width: '25%' }}
+          label="Home"
+          value="home"
+          icon={<Link to='/' style={{ color: value === 'home' ? 'orange' : 'gray' }}><HomeIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'home' ? '5rem' : '', padding: value === 'home' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'home' ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '', }} /></Link>}
         />
         <BottomNavigationAction
           style={{ width: '20%' }}

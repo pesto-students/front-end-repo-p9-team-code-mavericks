@@ -3,6 +3,8 @@ import Cookies from "js-cookie";
 import UserListViewCard from "../UserListViewCard";
 import { useParams } from "react-router-dom";
 import ErrorMsgBox from "../ErrorMsgBox";
+import { Container } from 'react-bootstrap';
+import { BACKEND_URL } from "../../global";
 
 const FollowingContent = () => {
   const [errorMsg, setErrorMsg] = useState('');
@@ -13,7 +15,7 @@ const FollowingContent = () => {
   const fetchFollowingsList = async () => {
     try {
       const token = Cookies.get('token');
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/followings/'+user, {
+      const response = await fetch(BACKEND_URL + '/users/followings/'+user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -39,8 +41,10 @@ const FollowingContent = () => {
   }, [])
 
   return (
-    <>
-      <h2>Followings:</h2>
+    <Container>
+      <div style={{borderRadius:'10px', backgroundColor:'white', padding: '1%', boxShadow:'0 1px 4px 0 rgba(0, 0, 0, 0.4), 0 1px 8px 0 rgba(0, 0, 0, 0.2)'}}>
+        <i style={{color:'blue'}}>{Cookies.get('username')} / <span>followings</span></i>
+      </div>
       {isLoading ? (
         <p>Loading...</p>
       ) : !followingsList || followingsList.length === 0? (
@@ -52,7 +56,7 @@ const FollowingContent = () => {
           ))}
         </ul>
       )}
-    </>
+    </Container>
   );
 
 }

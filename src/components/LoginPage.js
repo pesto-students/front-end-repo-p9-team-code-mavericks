@@ -8,6 +8,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import { Button } from "react-bootstrap";
+import { BACKEND_URL } from "../global";
 
 const LoginPage = () => {
   const [errorMsg, setErrorMsg] = useState("");
@@ -23,7 +24,7 @@ const LoginPage = () => {
       const email = emailInputRef.current.value;
       const password = passwordInputRef.current.value;
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + "/login", {
+      const response = await fetch(BACKEND_URL + "/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Specify that you are sending JSON data

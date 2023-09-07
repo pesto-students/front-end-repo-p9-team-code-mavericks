@@ -13,6 +13,7 @@ import addRecipeImage from '../img/recipe_add_icon.png';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import Toast from 'react-bootstrap/Toast';
 import MobileNavbar from '../components/MobileNavbar';
+import { BACKEND_URL } from "../global";
 
 const HomePage = () => {
   const username = useSelector((state) => state.username.username);
@@ -52,7 +53,7 @@ const HomePage = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/retrieve/' + pageNo, {
+      const response = await fetch(BACKEND_URL + '/posts/retrieve/' + pageNo, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -81,7 +82,7 @@ const HomePage = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/mostliked', {
+      const response = await fetch(BACKEND_URL + '/posts/mostliked', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data

@@ -7,6 +7,7 @@ import { Container } from "react-bootstrap";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import { BACKEND_URL } from "../../global";
 
 const UserPosts = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -19,7 +20,7 @@ const UserPosts = () => {
 
     // Fetch user info
     try {
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/allposts/' + user, {
+      const response = await fetch(BACKEND_URL + '/posts/allposts/' + user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data

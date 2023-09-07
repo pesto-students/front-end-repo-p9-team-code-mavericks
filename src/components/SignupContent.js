@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../store/usernameSlice';
 import { useRef, useState } from 'react';
 import Cookies from 'js-cookie';
+import { BACKEND_URL } from "../global";
 
 const SignupContent = (props) => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const SignupContent = (props) => {
       const email = emailInputRef.current.value;
       const password = passwordInputRef.current.value;
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/login', {
+      const response = await fetch(BACKEND_URL + '/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data

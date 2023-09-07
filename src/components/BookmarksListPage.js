@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import RecipeCard from './RecipeCard';
 import MobileNavbar from '../components/MobileNavbar';
+import { BACKEND_URL } from "../global";
 
 const BookmarksListPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +19,7 @@ const BookmarksListPage = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/getmybookmarks', {
+      const response = await fetch(BACKEND_URL + '/posts/getmybookmarks', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

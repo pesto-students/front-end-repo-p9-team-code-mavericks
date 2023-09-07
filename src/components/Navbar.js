@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import '../css/navbar.css';
 import seachIconImg from "../img/icons8-search.svg";
 import ListGroup from "react-bootstrap/ListGroup";
+import { BACKEND_URL } from "../global";
 
 const Navbar = () => {
   const username = useSelector((state) => { return state.username.username });
@@ -50,7 +51,7 @@ const Navbar = () => {
     }
 
     try {
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/logout', {
+      const response = await fetch(BACKEND_URL + '/users/logout', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -93,7 +94,7 @@ const Navbar = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/posts/search/'+trimmedKeyword, {
+      const response = await fetch(BACKEND_URL + '/posts/search/'+trimmedKeyword, {
         method: 'GET',
         headers: {
           'authorization': token,
