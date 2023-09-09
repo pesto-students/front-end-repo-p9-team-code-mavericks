@@ -24,7 +24,7 @@ pipeline {
             steps {
                 try{
                     sh 'docker stop rasoiFrontend'
-                    sh 'docker rm rasoiFrontendc:\projects\express-demo\Dockerfile'
+                    sh 'docker rm rasoiFrontend'
                 }catch (Exception e){
                     echo 'Exception occurred: ' + e.toString()
                 }
