@@ -6,7 +6,7 @@ pipeline {
       tools {nodejs "nodejs"}
 
     environment{
-        DOCKER_IMAGE = "pestoFrontend"
+        DOCKER_IMAGE = "pestofrontend"
     }
 
     stages {
@@ -22,12 +22,14 @@ pipeline {
 
        stage('Build') {
             steps {
-                try{
-                    sh 'docker stop rasoiFrontend'
-                    sh 'docker rm rasoiFrontend'
-                }catch (Exception e){
-                    echo 'Exception occurred: ' + e.toString()
-                }
+                   script {
+                       try{
+                           sh 'docker stop rasoifrontend'
+                           sh 'docker rm rasoifrontend'
+                       }catch (Exception e){
+                           echo 'Exception occurred: ' + e.toString()
+                       }
+                   }
                 // Build a Docker image for your Express application
                 sh 'docker build -t $DOCKER_IMAGE .'
             }
@@ -36,7 +38,7 @@ pipeline {
       stage('Deploy') {
             steps {
                 // Deploy the Docker container using the built image
-                sh "docker run -d -p 3001:3001 --name rasoiFrontend $DOCKER_IMAGE"
+                sh "docker run -d -p 3001:3001 --name rasoifrontend $DOCKER_IMAGE"
             }
         }
     }
