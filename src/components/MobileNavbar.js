@@ -269,32 +269,32 @@ export default function LabelBottomNavigation() {
           style={{ width: '20%' }}
           label="Bookmarks"
           value="bookmarks"
-          icon={<Link to='/bookmarks' style={{ color: value === 'bookmarks' ? 'orange' : 'gray' }}><BookmarkIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'bookmarks' ? '5rem' : '', padding: value === 'bookmarks' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'bookmarks' ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '', }} /></Link>}
+          icon={<Link to='/bookmarks' style={{ color: value === 'bookmarks' ? 'orange' : 'gray' }}><BookmarkIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'bookmarks' ? '5rem' : '', padding: value === 'bookmarks' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'bookmarks' ? '0 4px 8px 0 rgba(255, 165, 0, 0.3), 0 6px 20px 0 rgba(255, 165, 0, 0.19)' : '', }} /></Link>}
         />
         <BottomNavigationAction
           style={{ width: '20%' }}
           label="Post"
           value="post"
-          icon={<Link to='/createpost' style={{ color: value === 'post' ? 'orange' : 'gray' }}><AddCircleSharpIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'post' ? '5rem' : '', padding: value === 'post' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'post' ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '', }} /></Link>}
+          icon={<Link to='/createpost' style={{ color: value === 'post' ? 'orange' : 'gray' }}><AddCircleSharpIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'post' ? '5rem' : '', padding: value === 'post' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'post' ? '0 4px 8px 0 rgba(255, 165, 0, 0.3), 0 6px 20px 0 rgba(255, 165, 0, 0.19)' : '', }} /></Link>}
         />
         <BottomNavigationAction
           href='/'
           style={{ width: '25%' }}
           label="Home"
           value="home"
-          icon={<Link to='/' style={{ color: value === 'home' ? 'orange' : 'gray' }}><HomeIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'home' ? '5rem' : '', padding: value === 'home' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'home' ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '', }} /></Link>}
+          icon={<Link to='/' style={{ color: value === 'home' ? 'orange' : 'gray' }}><HomeIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'home' ? '5rem' : '', padding: value === 'home' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'home' ? '0 4px 8px 0 rgba(255, 165, 0, 0.3), 0 6px 20px 0 rgba(255, 165, 0, 0.19)' : '', }} /></Link>}
         />
         <BottomNavigationAction
           style={{ width: '20%' }}
           label="Profile"
           value="profile"
-          icon={<Link to={'/profile/' + Cookies.get('username')} style={{ color: value === 'profile' ? 'orange' : 'gray' }}><Person2SharpIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'profile' ? '5rem' : '', padding: value === 'profile' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'profile' ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '', }} /></Link>}
+          icon={<Link to={'/profile/' + Cookies.get('username')} style={{ color: value === 'profile' ? 'orange' : 'gray' }}><Person2SharpIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'profile' ? '5rem' : '', padding: value === 'profile' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'profile' ? '0 4px 8px 0 rgba(255, 165, 0, 0.3), 0 6px 20px 0 rgba(255, 165, 0, 0.19)' : '', }} /></Link>}
         />
         <BottomNavigationAction
           style={{ width: '20%' }}
           label="Logout"
           value="logout"
-          icon={<PowerSettingsNewSharpIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'logout' ? '5rem' : '', padding: value === 'logout' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'logout' ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '', }} />}
+          icon={<PowerSettingsNewSharpIcon style={{ borderRadius: '50%', backgroundColor: 'white', fontSize: value === 'logout' ? '5rem' : '', padding: value === 'logout' ? '1%' : '0', transition: '0.5s', boxShadow: value === 'logout' ? '0 4px 8px 0 rgba(255, 165, 0, 0.3), 0 6px 20px 0 rgba(255, 165, 0, 0.19)' : '', }} />}
         />
       </BottomNavigation>
     </>

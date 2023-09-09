@@ -162,7 +162,7 @@ const RecipeCard = (props) => {
             }
           </IconButton>
           <IconButton aria-label="viewMore" onClick={viewDetailedRecipe} >
-            <div><Button style={{ backgroundColor: 'orange', color: 'white', borderRadius: '10px', border: '0px' }}>View</Button></div>
+            <div><Button style={{ boxShadow: '0 4px 8px 0 rgba(255, 165, 0, 0.3), 0 6px 20px 0 rgba(255, 165, 0, 0.19)', backgroundColor: 'orange', color: 'white', borderRadius: '10px', border: '0px' }}>View</Button></div>
           </IconButton>
         </CardActions>
       </Card>
