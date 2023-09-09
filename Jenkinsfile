@@ -38,7 +38,7 @@ pipeline {
       stage('Deploy') {
             steps {
                 // Deploy the Docker container using the built image
-                sh "docker run -d -p 3001:3001 --name rasoifrontend $DOCKER_IMAGE"
+                sh "docker run -d -p 3000:3000 --name rasoifrontend $DOCKER_IMAGE"
             }
         }
     }
