@@ -15,7 +15,7 @@ pipeline {
                 // Cleanup workspace cache before build
                 cleanWs()
                 script {
-                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/pesto-students/back-end-repo-p9-team-code-mavericks.git']]])
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/pesto-students/front-end-repo-p9-team-code-mavericks.git']]])
                 }
             }
         }
