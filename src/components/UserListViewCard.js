@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 
 const UserListViewCard = (props) => {
 
-  const [isFollowing, setIsFollowing] = useState(true);
+  const [isFollowing, setIsFollowing] = useState(props.followback);
 
   const followUser = async() => {
     try {

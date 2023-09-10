@@ -1,13 +1,13 @@
 import React from "react";
 
-const Activities = () => {
+const PostedRecipes = () => {
   return (
     <>
       <div>
-        Activities
+        Recipies
       </div>
     </>
   )
 }
 
-export default Activities;
+export default PostedRecipes;

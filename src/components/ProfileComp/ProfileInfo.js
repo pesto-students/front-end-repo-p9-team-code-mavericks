@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Cookies from 'js-cookie';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
+import { BACKEND_URL } from '../../global';
 
 import {
   MDBCol,
@@ -47,7 +48,7 @@ export default function ProfilePage() {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/username/' + user, {
+      const response = await fetch(BACKEND_URL + '/users/username/' + user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -73,7 +74,7 @@ export default function ProfilePage() {
       setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/' + user + '/count/followers', {
+      const response = await fetch(BACKEND_URL + '/users/' + user + '/count/followers', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -99,7 +100,7 @@ export default function ProfilePage() {
       setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/' + user + '/count/following', {
+      const response = await fetch(BACKEND_URL + '/users/' + user + '/count/following', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -125,7 +126,7 @@ export default function ProfilePage() {
       setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/' + user + '/count/posts', {
+      const response = await fetch(BACKEND_URL + '/users/' + user + '/count/posts', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -151,7 +152,7 @@ export default function ProfilePage() {
       setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/' + user + '/count/bookmarks', {
+      const response = await fetch(BACKEND_URL + '/users/' + user + '/count/bookmarks', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -200,7 +201,7 @@ export default function ProfilePage() {
       setIsLoading(true);
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/isfollowing/'+user, {
+      const response = await fetch(BACKEND_URL + '/users/isfollowing/'+user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
@@ -226,7 +227,7 @@ export default function ProfilePage() {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/follow/' + user, {
+      const response = await fetch(BACKEND_URL + '/users/follow/' + user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -251,7 +252,7 @@ export default function ProfilePage() {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(process.env.REACT_APP_WEBSITE_URL + '/users/unfollow/'+user, {
+      const response = await fetch(BACKEND_URL + '/users/unfollow/'+user, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -303,7 +304,7 @@ export default function ProfilePage() {
                 <div className="d-flex justify-content-center mb-2">
                   {
                     Cookies.get('username') == userDetails.username ? <></ >:
-                      (isFollowing)? <Button variant='warning' onClick={unfollowUser}>Unfollow</Button> :<Button variant='warning' onClick={followUser}>Follow</Button>
+                      (isFollowing)? <Button onClick={unfollowUser} style={{backgroundColor:'orange', boxShadow: '0 4px 8px 0 rgba(255, 165, 0, 0.3), 0 6px 20px 0 rgba(255, 165, 0, 0.19)', border: '0px solid black'}}>Unfollow</Button> :<Button style={{backgroundColor:'orange', boxShadow: '0 4px 8px 0 rgba(255, 165, 0, 0.3), 0 6px 20px 0 rgba(255, 165, 0, 0.19)', border: '0px solid black'}} onClick={followUser}>Follow</Button>
                   }
                 </div>
               </MDBCardBody>

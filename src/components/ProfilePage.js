@@ -9,7 +9,7 @@ import MobileNavbar from '../components/MobileNavbar';
 import EditProf from "./ProfileComp/EditProf";
 import FollowersContent from "./ProfileComp/FollowersContent";
 import FollowingContent from "./ProfileComp/FollowingContent";
-import Activities from "./ProfileComp/Activities";
+import PostedRecipes from "./ProfileComp/PostedRecipes";
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -32,7 +32,7 @@ const ProfilePage = () => {
   const compMap = {
     profInfo: <ProfileInfo />,
     editProf: <EditProf />,
-    activities: <Activities />,
+    postedRecipes: <PostedRecipes />,
     followers: <FollowersContent />,
     following: <FollowingContent />,
   }
@@ -94,10 +94,10 @@ const ProfilePage = () => {
               </div>
 
               <div
-                className={activeLink == 'activities' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
-                onClick={() => { handleSideNavLinkClick('activities') }}
+                className={activeLink == 'postedRecipes' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
+                onClick={() => { handleSideNavLinkClick('postedRecipes') }}
               >
-                <div >ACTIVITIES</div>
+                <div >RECIPES</div>
               </div>
 
               <div
@@ -108,19 +108,18 @@ const ProfilePage = () => {
               </div>
 
               <div
-                className={activeLink == 'editProf' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
-                onClick={() => { handleSideNavLinkClick('editProf') }}
-              >
-                <div >EDIT PROFILE</div>
-              </div>
-
-              <div
                 className={activeLink == 'following' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
                 onClick={() => { handleSideNavLinkClick('following') }}
               >
                 <div >FOLLOWING</div>
               </div>
 
+              <div
+                className={activeLink == 'editProf' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
+                onClick={() => { handleSideNavLinkClick('editProf') }}
+              >
+                <div >EDIT PROFILE</div>
+              </div>
             </div>
           </div>
         </Offcanvas.Body>
@@ -141,10 +140,10 @@ const ProfilePage = () => {
                 </div>
 
                 <div
-                  className={activeLink == 'activities' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
-                  onClick={() => { handleSideNavLinkClick('activities') }}
+                  className={activeLink == 'postedRecipes' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
+                  onClick={() => { handleSideNavLinkClick('postedRecipes') }}
                 >
-                  <div style={{ marginLeft: '10%' }}>ACTIVITIES</div>
+                  <div style={{ marginLeft: '10%' }}>RECIPES</div>
                 </div>
 
                 <div
@@ -155,17 +154,17 @@ const ProfilePage = () => {
                 </div>
 
                 <div
-                  className={activeLink == 'editProf' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
-                  onClick={() => { handleSideNavLinkClick('editProf') }}
-                >
-                  <div style={{ marginLeft: '10%' }}>EDIT PROFILE</div>
-                </div>
-
-                <div
                   className={activeLink == 'following' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
                   onClick={() => { handleSideNavLinkClick('following') }}
                 >
                   <div style={{ marginLeft: '10%' }}>FOLLOWING</div>
+                </div>
+
+                <div
+                  className={activeLink == 'editProf' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
+                  onClick={() => { handleSideNavLinkClick('editProf') }}
+                >
+                  <div style={{ marginLeft: '10%' }}>EDIT PROFILE</div>
                 </div>
 
               </div>
