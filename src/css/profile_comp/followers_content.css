@@ -1,0 +1,15 @@
+.search-followers-input {
+  border: none; /* Remove default border */
+  outline: none;
+  border-bottom: 1px solid #e7088e;
+  color: gray;
+  transition: 0.5;
+}
+
+.search-followers-input:focus {
+  border-bottom: 2px solid #e7088e;
+}
+
+.search-followers-input::placeholder {
+  color: #f0a5d2;
+}
