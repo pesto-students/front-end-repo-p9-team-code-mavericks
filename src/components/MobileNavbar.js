@@ -16,7 +16,7 @@ import '../css/mobile_navbar.css';
 import seachIconImg from "../img/icons8-search.svg";
 import { BACKEND_URL } from "../global";
 
-export default function LabelBottomNavigation() {
+export default function MobileNavbar() {
   const [value, setValue] = React.useState('');
   const dispatch = useDispatch();
   const [isSticky, setIsSticky] = useState(true);
