@@ -92,7 +92,7 @@ const RecipeCard = (props) => {
     return word[0].toUpperCase();
   }
 
-  const src_var = BACKEND_URL + "/uploads/ca2080db-afce-4f0a-9869-dda96f405ca2.png"
+  const src_var = "https://rasoi.s3.ap-south-1.amazonaws.com/public/uploads/1ba7df02-4da4-46c5-8858-cb7bd5a5f7b0.jpg";
   console.log(src_var);
   return (
     <Container className="recipe-card-container">
@@ -131,7 +131,7 @@ const RecipeCard = (props) => {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', justifyContent: 'space-around' }}>
               <div style={{ fontSize: '0.8rem', color: 'blue' }}>10 views</div>&nbsp;
-              <div style={{ fontSize: '1rem', color: 'blue' }}> | </div>&nbsp;
+              <div style={{fontSize: '1rem', color: 'blue' }}> | </div>&nbsp;
               <div style={{ fontSize: '0.8rem', color: 'blue' }}>{likesCnt + ' Likes'}</div>
             </div>
             <div style={{ fontSize: '0.6rem', color: 'blue' }}>26 July 2023</div>

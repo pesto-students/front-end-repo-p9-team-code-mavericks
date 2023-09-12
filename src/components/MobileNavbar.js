@@ -263,7 +263,21 @@ export default function MobileNavbar() {
         </div>
       </div>
 
-      <BottomNavigation className='mob-nav' style={{ width: '100%', position: 'fixed', bottom: '0', zIndex: '100', height: '6vh' }} value={value} onChange={handleChange}>
+      <BottomNavigation className='mob-nav'
+        style={
+          {
+            transform: isSticky ? 'translateY(0%)' : 'translateY(150%)',
+            width: '100%',
+            position: 'fixed',
+            bottom: '0',
+            zIndex: '100',
+            height: '6vh',
+            transition: 'transform 0.3s ease-in-out',
+          }
+        }
+        value={value}
+        onChange={handleChange}
+      >
         <BottomNavigationAction
           href='bookmarks'
           style={{ width: '20%' }}
