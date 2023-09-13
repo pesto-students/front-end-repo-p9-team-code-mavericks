@@ -5,10 +5,6 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import card_img from '../img/recipe_login_wallpaper.jpg';
 import '../css/homepage.css';
-import unlikeImg from '../img/icons8-heart-unliked.png';
-import likeImg from '../img/icons8-heart-liked.png';
-import bookmarkImg from '../img/icons8-bookmarked.png';
-import unbookmarkImg from '../img/icons8-unbookmark.png'
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -22,9 +18,8 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import ShareIcon from "@mui/icons-material/Share";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { BACKEND_URL } from "../global";
+import rasoiImg from '../img/rasoi_logo_banner.png';
 
 const RecipeCard = (props) => {
   const [isBookmarked, setIsBookmarked] = useState(props.feed.bookmarked);
@@ -92,7 +87,11 @@ const RecipeCard = (props) => {
     return word[0].toUpperCase();
   }
 
-  const src_var = "https://rasoi.s3.ap-south-1.amazonaws.com/public/uploads/1ba7df02-4da4-46c5-8858-cb7bd5a5f7b0.jpg";
+  let src_var;
+  if(!props.feed.recipe_picture.length && props.feed.recipe_picture.length != 0)
+    src_var = props.feed.recipe_picture[0];
+  else
+    src_var = rasoiImg;
   console.log(src_var);
   return (
     <Container className="recipe-card-container">

@@ -84,7 +84,7 @@ const CreatePostPage = () => {
     console.log('recipe title is '+title.current.value);
     const token = Cookies.get('token');
     const handleUploadImgResp = await handleUpload(token);
-
+    console.log('data'+JSON.stringify(handleUploadImgResp));
     if(handleUploadImgResp.error){
       console.log(handleUploadImgResp.error);
       return;
@@ -112,7 +112,7 @@ const CreatePostPage = () => {
           recipe_ingredients: ingridients.map(item => item.content),
           recipe_category: category.current.value,
           recipe_description: description.current.value,
-          recipe_picture: handleUploadImgResp.map(item => item),
+          recipe_picture: handleUploadImgResp.map(item => item.location),
           recipe_time: cookingTime.current.value,
         }),
     });
@@ -123,7 +123,7 @@ const CreatePostPage = () => {
       return;
     }
     console.log(data);
-    window.location.href = '/';
+    // window.location.href = '/';
   }
 
   const handleUpload = async (token) => {
@@ -148,7 +148,8 @@ const CreatePostPage = () => {
       }
       setFiles([]);
       setSelectedFiles([]);
-      return data.filePaths;
+      // return data.filePaths;
+      return data;
     } catch (error) {
       console.error('Error uploading files:', error);
     }
