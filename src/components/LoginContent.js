@@ -41,6 +41,7 @@ const LoginContent = (props) => {
       Cookies.set('token', data.token, { expires: 7 }); // Set the token to expire in 7 days
       Cookies.set('username', data.username, { expires: 7 });
       Cookies.set('first_time_login', data.first_time_login, { expires: 7 });
+      Cookies.set('signup_complete', data.signup_completed, { expires: 7});
       window.location.href = '/';
     } catch (error) {
       console.error('Error fetching username:', error);

@@ -162,14 +162,13 @@ const RecipeDetail = () => {
 
   return (
     <>
-      {/* {console.log(JSON.stringify(postDetail))} */}
+      {Object.keys(postDetail).length !== 0?console.log('Val \n'+JSON.stringify(postDetail.post.recipe_picture)): <></>}
       {isMobile?<BackNavbar />: <></>}
       <div style={{ display: 'flex', position: 'relative', padding:'2%'}}>
 
         <div className="right-half-div">
-
           <div style={{boxShadow: '0 4px 6px rgba(0, 0, 0, 0.4)'}}>
-            <CustomCarousel />
+            <CustomCarousel pictures = {Object.keys(postDetail).length !== 0?postDetail.post.recipe_picture: []}/>
           </div>
 
           <div className="intro-content" style={{ width: '100%', marginTop: '1.5vh' }}>
@@ -292,3 +291,8 @@ const RecipeDetail = () => {
 }
 
 export default RecipeDetail;
+
+
+
+
+

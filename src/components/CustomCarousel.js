@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/custom_carousel.css'; // Make sure to create this CSS file for styling
 import img1 from '../img/recipe_login_wallpaper.jpg';
 import img2 from '../img/z2w9enzo.png';
@@ -8,14 +8,8 @@ import { Button } from 'react-bootstrap';
 import prev from '../img/icons8-previous-50.png';
 import next from '../img/icons8-next-50.png';
 
-const CustomCarousel = () => {
-  const images = [
-    img1,
-    img2,
-    img3,
-    img4,
-    // Add more image URLs as needed
-  ];
+const CustomCarousel = (props) => {
+  const [images, setImages] = useState([]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -26,10 +20,23 @@ const CustomCarousel = () => {
   };
 
   const handleNextClick = () => {
+    console.log(props.pictures)
     if (currentIndex < images.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
   };
+
+  const getImagesArr = () => {
+    if(!props.pictures || props.pictures.length == 0)
+      setImages([img1, img2]);
+    else
+      setImages(props.pictures);
+      
+  }
+  useEffect(()=>{
+    console.log('Images '+props.pictures);
+    getImagesArr();
+  })
 
   return (
     <div className="custom-carousel" style={{ backgroundColor: 'lightblue', display: 'flex', justifyContent: 'space-around', alignItems: 'center', width:'100%' }}>

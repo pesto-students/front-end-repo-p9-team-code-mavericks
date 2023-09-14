@@ -14,11 +14,13 @@ import ToastContainer from 'react-bootstrap/ToastContainer';
 import Toast from 'react-bootstrap/Toast';
 import MobileNavbar from '../components/MobileNavbar';
 import { BACKEND_URL } from "../global";
+import FinishSignup from './FinsihSignup';
 
 const HomePage = () => {
   const username = useSelector((state) => state.username.username);
   const cookieUserName = Cookies.get('username');
   const firstTimeLogin = Cookies.get('first_time_login');
+  const signupComplete = Cookies.get('signup_complete');
   const [feeds, setFeeds] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const lastRecipeCardRef = useRef();
@@ -163,7 +165,7 @@ const HomePage = () => {
       {isMobile && Cookies.get('username') ?<MobileNavbar />: <></>}
       <div>
     {cookieUserName ?
-      firstTimeLogin == 'true' ? <InterestsPage />
+      signupComplete == 'true' ? <FinishSignup />
         :
         (
           <>
