@@ -19,7 +19,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import { BACKEND_URL } from "../global";
-import rasoiImg from '../img/rasoi_logo_banner.png';
+import defaultPostImg from '../img/rasoi_logo_banner.png';
 
 const RecipeCard = (props) => {
   const [isBookmarked, setIsBookmarked] = useState(props.feed.bookmarked);
@@ -88,12 +88,13 @@ const RecipeCard = (props) => {
   }
 
   let src_var;
-  if(!props.feed.recipe_picture.length && props.feed.recipe_picture.length != 0)
-    src_var = props.feed.recipe_picture[0];
+  console.log('feed '+JSON.stringify(props.feed.recipe_picture));
+  if(props.feed.recipe_picture.length && props.feed.recipe_picture.length != 0)
+    src_var = props.feed.recipe_picture;
   else
-    src_var = rasoiImg;
-  console.log(src_var);
-  return (
+    src_var = defaultPostImg;
+
+    return (
     <Container className="recipe-card-container">
       {/* <div className="recipe-card-inner-div"> */}
       <Card sx={{ maxWidth: '100%' }}>
