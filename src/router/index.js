@@ -1,5 +1,5 @@
 // router/index.js
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import HomePage from '../components/HomePage';
@@ -12,6 +12,7 @@ import BookmarksListPage from '../components/BookmarksListPage'
 import CreatePostPage from '../components/CreatePostPage';
 import RecipeDetail from '../components/RecipeDetail';
 import MobileNavbar from '../components/MobileNavbar';
+import FinishSignup from '../components/FinsihSignup';
 
 const AppRouter = () => {
   const username = useSelector((state) => state.username.username);
@@ -33,7 +34,7 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       {cookieUserName ?
-       isMobile ? <></> : <Navbar />: <></>
+        isMobile ? <></> : <Navbar /> : <></>
       }
       <Routes>
         <Route
@@ -64,6 +65,11 @@ const AppRouter = () => {
         <Route
           path="/post/:id"
           element={cookieUserName ? <RecipeDetail /> : <HomePage />}
+        />
+
+        <Route
+          path="/getyoustarted/:username"
+          element={<FinishSignup />}
         />
 
       </Routes>

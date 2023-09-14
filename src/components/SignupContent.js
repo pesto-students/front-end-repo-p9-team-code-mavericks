@@ -1,6 +1,6 @@
 import React from "react";
 import '../css/login_signup.css';
-import { Button, Card, Container } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../store/usernameSlice';
 import { useRef, useState } from 'react';
@@ -8,26 +8,24 @@ import Cookies from 'js-cookie';
 import { BACKEND_URL } from "../global";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
-
 const SignupContent = (props) => {
   const dispatch = useDispatch();
-  const emailInputRef = useRef(null);
+  const usernameInputRef = useRef(null);
   const passwordInputRef = useRef(null);
   const confirmPasswordInputRef = useRef(null);
 
-
-  const fetchUsernameFromAPI = async () => {
+  const signupUser = async() => {
     try {
       // Make the API call to get the username
-      const email = emailInputRef.current.value;
+      const username = usernameInputRef.current.value;
       const password = passwordInputRef.current.value;
 
-      const response = await fetch(BACKEND_URL + '/login', {
+      const response = await fetch(BACKEND_URL + '/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // Specify that you are sending JSON data
         },
-        body: JSON.stringify({ email, password }), // Convert the data to JSON format
+        body: JSON.stringify({ username, password }), // Convert the data to JSON format
       });
       const data = await response.json();
 
@@ -37,36 +35,28 @@ const SignupContent = (props) => {
       }
       console.log(data);
 
-      // Set the username in the Redux store
-      dispatch(login(data.username));
-
-      // Set the cookie in browser.
-      Cookies.set('token', data.token, { expires: 1 }); // Set the token to expire in 7 days
-      Cookies.set('username', data.username, { expires: 1 });
-      Cookies.set('first_time_login', data.first_time_login, { expires: 1 });
-
+      window.location.href = '/';
     } catch (error) {
       console.error('Error fetching username:', error);
     }
-  };
-
+  }
 
   const handleSignup = () => {
-    emailInputRef.current.value = emailInputRef.current.value.trim();
+    usernameInputRef.current.value = usernameInputRef.current.value.trim();
     passwordInputRef.current.value = passwordInputRef.current.value.trim();
     confirmPasswordInputRef.current.value = confirmPasswordInputRef.current.value.trim();
 
-    if (emailInputRef.current.value == "") {
-      emailInputRef.current.style.border = '1px solid red';
+    if (usernameInputRef.current.value == "") {
+      usernameInputRef.current.style.border = '1px solid red';
       passwordInputRef.current.style.border = '1px solid gray';
       confirmPasswordInputRef.current.style.border = '1px solid gray';
       return;
     }
     else
-      emailInputRef.current.style.border = '1px solid gray';
+      usernameInputRef.current.style.border = '1px solid gray';
 
     if (passwordInputRef.current.value == "") {
-      emailInputRef.current.style.border = '1px solid gray';
+      usernameInputRef.current.style.border = '1px solid gray';
       passwordInputRef.current.style.border = '1px solid red';
       confirmPasswordInputRef.current.style.border = '1px solid gray';
     }
@@ -74,7 +64,7 @@ const SignupContent = (props) => {
       passwordInputRef.current.style.border = '1px solid gray';
 
     if (confirmPasswordInputRef.current.value == "") {
-      emailInputRef.current.style.border = '1px solid gray';
+      usernameInputRef.current.style.border = '1px solid gray';
       passwordInputRef.current.style.border = '1px solid gray';
       confirmPasswordInputRef.current.style.border = '1px solid red';
 
@@ -85,11 +75,12 @@ const SignupContent = (props) => {
     if (passwordInputRef.current.value !== confirmPasswordInputRef.current.value) {
       confirmPasswordInputRef.current.style.border = '1px solid red';
       passwordInputRef.current.style.border = '1px solid red';
-      emailInputRef.current.style.border = '1px solid gray';
+      usernameInputRef.current.style.border = '1px solid gray';
       return;
     }
 
-    fetchUsernameFromAPI();
+    window.location.href = '/getyoustarted/'+usernameInputRef.current.value;
+
   };
 
   return (
@@ -99,7 +90,7 @@ const SignupContent = (props) => {
       {/* <hr style={{ color: 'white' }} /> */}
       <Card style={{ border: '0' }}>
         <div style={{ padding: '1%' }}>
-          <input style={{ width: '90%', padding: '1% 2vw 1%', border: '1px solid gray', borderRadius: '10px' }} type='email' ref={emailInputRef} placeholder="Email" />
+          <input style={{ width: '90%', padding: '1% 2vw 1%', border: '1px solid gray', borderRadius: '10px' }} type='text' ref={usernameInputRef} placeholder="User Name" />
         </div>
         <div style={{ padding: '1%' }}>
           <input style={{ width: '90%', padding: '1% 2vw 1%', border: '1px solid gray', borderRadius: '10px' }} ref={passwordInputRef} type='password' placeholder="Password" />
@@ -165,7 +156,6 @@ const SignupContent = (props) => {
           </GoogleOAuthProvider>
         </div>
       </div>
-
 
     </>
   )
