@@ -123,7 +123,7 @@ const CreatePostPage = () => {
       return;
     }
     console.log(data);
-    // window.location.href = '/';
+    window.location.href = '/';
   }
 
   const handleUpload = async (token) => {

@@ -5,7 +5,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
-import profileImg from '../img/profile_pic.jpg';
+import profileImg from '../img/default_profile2.png';
 import Button from '@mui/material/Button';
 import '../css/user_list_view_card.css';
 import { BACKEND_URL } from "../global";

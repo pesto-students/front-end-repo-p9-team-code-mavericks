@@ -89,8 +89,8 @@ const RecipeCard = (props) => {
 
   let src_var;
   console.log('feed '+JSON.stringify(props.feed.recipe_picture));
-  if(props.feed.recipe_picture.length && props.feed.recipe_picture.length != 0)
-    src_var = props.feed.recipe_picture;
+  if(props.feed.recipe_picture && props.feed.recipe_picture.length != 0)
+    src_var = props.feed.recipe_picture[0];
   else
     src_var = defaultPostImg;
 

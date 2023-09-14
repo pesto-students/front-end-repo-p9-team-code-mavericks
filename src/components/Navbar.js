@@ -7,6 +7,11 @@ import '../css/navbar.css';
 import seachIconImg from "../img/icons8-search.svg";
 import ListGroup from "react-bootstrap/ListGroup";
 import { BACKEND_URL } from "../global";
+import HomeIcon from '@mui/icons-material/Home';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
+import logo from '../img/rasoi_small_logo.png';
 
 const Navbar = () => {
   const username = useSelector((state) => { return state.username.username });
@@ -94,7 +99,7 @@ const Navbar = () => {
     try {
       const token = Cookies.get('token');
 
-      const response = await fetch(BACKEND_URL + '/posts/search/'+trimmedKeyword, {
+      const response = await fetch(BACKEND_URL + '/posts/search/' + trimmedKeyword, {
         method: 'GET',
         headers: {
           'authorization': token,
@@ -102,38 +107,38 @@ const Navbar = () => {
       });
 
       const data = await response.json();
-      console.log('Data is '+JSON.stringify(data));
+      console.log('Data is ' + JSON.stringify(data));
       if (!response.ok) {
         console.log(data.error);
         return;
       }
-      console.log('Data of users is '+JSON.stringify(data.users));
+      console.log('Data of users is ' + JSON.stringify(data.users));
 
       let resArr = [];
-      if(data.users.length !== 0)
+      if (data.users.length !== 0)
         resArr = [...resArr, ...data.users];
-      if(data.posts.length !== 0)
+      if (data.posts.length !== 0)
         resArr = [...resArr, ...data.posts];
       setSearchResults(resArr);
-    } catch(err) {
+    } catch (err) {
       console.error('Error fetching search results:', err);
     }
   }
 
   const goToPage = (result) => {
     console.log(result);
-    if(result.username && result.username !== '')
-      window.location.href = '/profile/'+result.username;
-    else if(result._id && result._id !== '')
-      window.location.href = '/post/'+result._id;
+    if (result.username && result.username !== '')
+      window.location.href = '/profile/' + result.username;
+    else if (result._id && result._id !== '')
+      window.location.href = '/post/' + result._id;
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setSearchResults([]);
     const trimmedKeyword = keyword.trim();
     console.log(trimmedKeyword);
 
-    if(trimmedKeyword == ''){
+    if (trimmedKeyword == '') {
       setSearchResults([]);
       return;
     }
@@ -164,30 +169,39 @@ const Navbar = () => {
             {
               searchResults.map((result, index) => {
                 return (
-                  <ListGroup.Item style={{cursor:'pointer'}} key={index} onClick={()=>{goToPage(result)}}>
+                  <ListGroup.Item style={{ cursor: 'pointer' }} key={index} onClick={() => { goToPage(result) }}>
                     {
-                      result.username?
+                      result.username ?
                         <>
-                          <div style={{display:'flex', justifyContent:'space-between'}}>
-                            <div  style={{color:'blue'}}>{result.firstname+'  '+result.lastname}</div>
-                            <div style={{color:'gray'}}><small>Author</small></div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ color: 'blue' }}>{result.firstname + '  ' + result.lastname}</div>
+                            <div style={{ color: 'gray' }}><small>Author</small></div>
                           </div>
-                        </>:
+                        </> :
                         <>
-                          <div style={{display:'flex', justifyContent:'space-between'}}>
-                            <div  style={{color:'blue'}}>{result.recipe_title}</div>
-                            <div style={{color:'gray'}}><small>Recipe</small></div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div style={{ color: 'blue' }}>{result.recipe_title}</div>
+                            <div style={{ color: 'gray' }}><small>Recipe</small></div>
                           </div>
                         </>
                     }
-                    </ListGroup.Item>
+                  </ListGroup.Item>
                 );
               })
             }
           </ListGroup>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', gap: '20px' }}>
-          <div><h3><b>R/\SO!</b></h3></div>
+          <div>
+          <h3>
+            <div style={{ display:'flex', alignItems:'center', justifyContent: 'space-between'}}>
+              <div style={{maxWidth:'100%', maxHeight: '100%',}}>
+                <img src={logo} style={{borderRadius: '10px', width: '30px', height:'30px', maxWidth:'100%', maxHeight: '100%'}}/>
+              </div>
+              <div>R/\SO!</div>
+            </div>
+          </h3>
+        </div>
           {cookieUserName ?
             <>
               <div className={isSearchBarClicked ? 'search-bar-with-outline' : 'search-bar'} ref={searchBar}>
@@ -198,7 +212,7 @@ const Navbar = () => {
                     className="search-input"
                     style={{ width: '100%' }}
                     onFocus={activateSearchBarClick}
-                    onChange={(e) => {setKeyword(e.target.value)}}
+                    onChange={(e) => { setKeyword(e.target.value) }}
                     value={keyword}
                   />
                 </div>
@@ -206,10 +220,38 @@ const Navbar = () => {
                   <img src={seachIconImg} alt='search-icon' className="image-preview" />
                 </div>
               </div>
-              <div><Link className='nav-links' to='/'  onClick={deactivateSearchBarClicked} >Home</Link></div>
-              <div><Link className='nav-links' to='/bookmarks'  onClick={deactivateSearchBarClicked}>Bookmarks</Link></div>
-              <div><Link className='nav-links' to={'/profile/' + Cookies.get('username')} >Profile</Link></div>
-              <div><Link className='nav-links' onClick={handleLogoutClick}>Logout</Link></div>
+              <div>
+                <Link className='nav-links' to='/' onClick={deactivateSearchBarClicked} >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center' }}>
+                    <div><HomeIcon /></div>
+                    <div>Home</div>
+                  </div>
+                </Link>
+              </div>
+              <div>
+                <Link className='nav-links' to='/bookmarks' onClick={deactivateSearchBarClicked}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center' }}>
+                    <div><BookmarkIcon /></div>
+                    <div>Bookmark</div>
+                  </div>
+                </Link>
+              </div>
+              <div>
+                <Link className='nav-links' to={'/profile/' + Cookies.get('username')} >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center' }}>
+                    <div><PersonIcon /></div>
+                    <div>Profile</div>
+                  </div>
+                </Link>
+              </div>
+              <div>
+                <Link className='nav-links' onClick={handleLogoutClick}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center', alignItems: 'center' }}>
+                    <div><LogoutIcon /></div>
+                    <div>Logout</div>
+                  </div>
+                </Link>
+              </div>
 
             </>
             :

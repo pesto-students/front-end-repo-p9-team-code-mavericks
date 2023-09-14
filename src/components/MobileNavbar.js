@@ -15,6 +15,7 @@ import Cookies from 'js-cookie';
 import '../css/mobile_navbar.css';
 import seachIconImg from "../img/icons8-search.svg";
 import { BACKEND_URL } from "../global";
+import logo from '../img/rasoi_small_logo.png';
 
 export default function MobileNavbar() {
   const [value, setValue] = React.useState('');
@@ -244,7 +245,16 @@ export default function MobileNavbar() {
             }
           </ListGroup>
         </div>
-        <div style={{ color: 'white' }}><h3><b>R/\SO!</b></h3></div>
+        <div style={{ color: 'white' }}>
+          <h3>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ maxWidth: '100%', maxHeight: '100%', }}>
+                <img src={logo} style={{ borderRadius: '10px', width: '30px', height: '30px', maxWidth: '100%', maxHeight: '100%' }} />
+              </div>
+              <div>R/\SO!</div>
+            </div>
+          </h3>
+        </div>
         <div className={isSearchBarClicked ? 'mob-search-bar-with-outline' : 'mob-search-bar'} ref={searchBar}>
           <div style={{ width: '90%' }}>
             <input

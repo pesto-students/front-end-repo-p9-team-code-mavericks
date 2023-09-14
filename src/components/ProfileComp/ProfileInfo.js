@@ -1,5 +1,5 @@
 import React from 'react';
-import profileImg from '../../img/profile_pic.jpg';
+import profileImg from '../../img/default_profile2.png';
 import settingsIcon from '../../img/icons8-settings.svg';
 import '../../css/profile_comp/profile_info.css';
 import Form from 'react-bootstrap/Form';
