@@ -9,7 +9,6 @@ import { BACKEND_URL } from "../global";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
 import ErrorMsgBox from "./ErrorMsgBox";
-import { async } from "q";
 
 const SignupContent = (props) => {
   const dispatch = useDispatch();

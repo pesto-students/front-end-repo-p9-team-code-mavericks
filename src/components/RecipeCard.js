@@ -51,6 +51,25 @@ const RecipeCard = (props) => {
     setLikesCnt(data.total_likes);
   }
 
+  function formatDateToCustomFormat(inputDateString) {
+    // Create a Date object from the input string
+    const date = new Date(inputDateString);
+
+    // Define an array of month names
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    // Extract day, month, and year from the Date object
+    const day = date.getUTCDate();
+    const month = monthNames[date.getUTCMonth()];
+    const year = date.getUTCFullYear();
+
+    // Format the date
+    const formattedDate = `${day} ${month} ${year}`;
+
+    // Return the formatted date
+    return formattedDate;
+  }
+
   const toogleBookmark = async () => {
 
     const flag = isBookmarked ? '0' : '1';
@@ -88,13 +107,13 @@ const RecipeCard = (props) => {
   }
 
   let src_var;
-  console.log('feed '+JSON.stringify(props.feed.recipe_picture));
-  if(props.feed.recipe_picture && props.feed.recipe_picture.length != 0)
+  console.log('feed ' + JSON.stringify(props.feed.recipe_picture));
+  if (props.feed.recipe_picture && props.feed.recipe_picture.length != 0)
     src_var = props.feed.recipe_picture[0];
   else
     src_var = defaultPostImg;
 
-    return (
+  return (
     <Container className="recipe-card-container">
       {/* <div className="recipe-card-inner-div"> */}
       <Card sx={{ maxWidth: '100%' }}>
@@ -112,8 +131,8 @@ const RecipeCard = (props) => {
                     <BookmarkAddedIcon />
                   </IconButton> :
                   <IconButton color="primary" aria-label="add a like">
-                  <BookmarkBorderIcon/>
-                </IconButton> 
+                    <BookmarkBorderIcon />
+                  </IconButton>
               }
             </IconButton>
           }
@@ -131,17 +150,17 @@ const RecipeCard = (props) => {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', justifyContent: 'space-around' }}>
               <div style={{ fontSize: '0.8rem', color: 'blue' }}>10 views</div>&nbsp;
-              <div style={{fontSize: '1rem', color: 'blue' }}> | </div>&nbsp;
+              <div style={{ fontSize: '1rem', color: 'blue' }}> | </div>&nbsp;
               <div style={{ fontSize: '0.8rem', color: 'blue' }}>{likesCnt + ' Likes'}</div>
             </div>
-            <div style={{ fontSize: '0.6rem', color: 'blue' }}>26 July 2023</div>
+            <div style={{ fontSize: '0.6rem', color: 'blue' }}>{formatDateToCustomFormat(props.feed.createdAt)}</div>
           </div>
           <Typography variant="body2" color="text.secondary">
             {props.feed.recipe_description}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to likes"  onClick={toogleLike}>
+          <IconButton aria-label="add to likes" onClick={toogleLike}>
             {
               (!isLiked) ?
                 <>
@@ -166,7 +185,7 @@ const RecipeCard = (props) => {
           </IconButton>
         </CardActions>
       </Card>
-      
+
       {/* <div className='recipe-card-img-div'>
           <img className="recipe-card-img" src={src_var} ></img>
         </div>

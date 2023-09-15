@@ -63,9 +63,12 @@ const CreatePostPage = () => {
   };
 
   const addIngridient = (content) => {
-    const newingridient = Math.floor(Math.random() * 10000000000);;
-    setIngridients([...ingridients, { id: newingridient, content: content }]);
-    setIngridientInputValue('');
+    if ((content != '') && (content != ' ')) {
+      console.log(content);
+      const newingridient = Math.floor(Math.random() * 10000000000);;
+      setIngridients([...ingridients, { id: newingridient, content: content }]);
+      setIngridientInputValue('');
+    }
   }
 
   const handleAddIngridientButtonClick = () => {
@@ -80,12 +83,12 @@ const CreatePostPage = () => {
     setIngridientInputValue(e.target.value);
   }
 
-  const handleCreateRecipeClick = async() => {
-    console.log('recipe title is '+title.current.value);
+  const handleCreateRecipeClick = async () => {
+    console.log('recipe title is ' + title.current.value);
     const token = Cookies.get('token');
     const handleUploadImgResp = await handleUpload(token);
-    console.log('data'+JSON.stringify(handleUploadImgResp));
-    if(handleUploadImgResp.error){
+    console.log('data' + JSON.stringify(handleUploadImgResp));
+    if (handleUploadImgResp.error) {
       console.log(handleUploadImgResp.error);
       return;
     }
@@ -95,7 +98,7 @@ const CreatePostPage = () => {
     handleUploadImgResp.map((item) => {
       recipePictures = [...recipePictures, item];
     });
-    console.log('pic array ',recipePictures);
+    console.log('pic array ', recipePictures);
 
     const response = await fetch(BACKEND_URL + '/posts/create', {
       method: 'POST',
@@ -105,7 +108,7 @@ const CreatePostPage = () => {
       },
 
       body: JSON.stringify(
-        { 
+        {
           ispublic: isPublic,
           recipe_steps: steps.map(item => item.content),
           recipe_title: title.current.value,
@@ -118,7 +121,7 @@ const CreatePostPage = () => {
     });
     const data = await response.json();
 
-    if(!response.ok){
+    if (!response.ok) {
       console.log(data.error);
       return;
     }
@@ -143,7 +146,7 @@ const CreatePostPage = () => {
 
       const data = await response.json();
 
-      if(!response.ok){
+      if (!response.ok) {
         return data;
       }
       setFiles([]);
@@ -165,10 +168,10 @@ const CreatePostPage = () => {
 
   return (
     <>
-      {isMobile?<BackNavbar />: <></>}
+      {isMobile ? <BackNavbar /> : <></>}
       <div className="create-post-outer-container">
         <Container >
-          <div className="create-post-divs" style={{boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',borderRadius: '20px',padding: '2.5%'}}>
+          <div className="create-post-divs" style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)', borderRadius: '20px', padding: '2.5%' }}>
             <div><h3 style={{ color: 'gray' }}>Basic info:</h3></div>
             <div style={{ padding: "1%" }}>
               <FloatingLabel
@@ -176,13 +179,13 @@ const CreatePostPage = () => {
                 label="Recipe Title"
                 className="mb-3"
               >
-                <Form.Control type="text" placeholder="" ref = {title}/>
+                <Form.Control type="text" placeholder="" ref={title} />
               </FloatingLabel>
             </div>
 
             <div style={{ padding: "1%" }}>
               <FloatingLabel controlId="floatingSelect" label="Category">
-                <Form.Select aria-label="Floating label select example" ref = {category}>
+                <Form.Select aria-label="Floating label select example" ref={category}>
                   <option>None</option>
                   <option value="veg">Veg</option>
                   <option value="green-vegies">Green Vegies</option>
@@ -203,7 +206,7 @@ const CreatePostPage = () => {
                   as="textarea"
                   placeholder=""
                   style={{ height: '100px' }}
-                  ref = {description}
+                  ref={description}
                 />
               </FloatingLabel>
             </div>
@@ -214,7 +217,7 @@ const CreatePostPage = () => {
                 label="Cooking Time"
                 className="mb-3"
               >
-                <Form.Control type="text" placeholder="" ref = {cookingTime}/>
+                <Form.Control type="text" placeholder="" ref={cookingTime} />
               </FloatingLabel>
             </div>
 
@@ -225,14 +228,14 @@ const CreatePostPage = () => {
                   type="switch"
                   id="custom-switch"
                   label="Public"
-                  ref = {switchRef}
+                  ref={switchRef}
                   onChange={handleSwitchChange}
                 />
               </FloatingLabel>
             </div>
           </div>
 
-          <div className="create-post-divs" style={{ marginTop: "4%",boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',borderRadius: '20px',padding: '2.5%' }}>
+          <div className="create-post-divs" style={{ marginTop: "4%", boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)', borderRadius: '20px', padding: '2.5%' }}>
             <div><h3 style={{ color: 'gray' }}>Add Steps:</h3></div>
 
             <div id='mydiv' style={{ padding: "1%" }}>
@@ -270,7 +273,7 @@ const CreatePostPage = () => {
             </div>
           </div>
 
-          <div className="create-post-divs" style={{ marginTop: "4%",boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',borderRadius: '20px',padding: '2.5%' }}>
+          <div className="create-post-divs" style={{ marginTop: "4%", boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)', borderRadius: '20px', padding: '2.5%' }}>
             <div><h3 style={{ color: 'gray' }}>Add ingredient:</h3></div>
             <div style={{ padding: "1%" }}>
               <div style={{ width: "100%", display: "flex", justifyContent: "space-evenly" }}>
@@ -296,8 +299,8 @@ const CreatePostPage = () => {
             </div>
           </div>
 
-          <div className="create-post-divs" style={{ marginTop: "4%", boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',borderRadius: '20px',padding: '2.5%' }}>
-            <UploadImgComponent files={files} selectedFiles={selectedFiles} setFiles={setFiles} setSelectedFiles={setSelectedFiles}/>
+          <div className="create-post-divs" style={{ marginTop: "4%", boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)', borderRadius: '20px', padding: '2.5%' }}>
+            <UploadImgComponent files={files} selectedFiles={selectedFiles} setFiles={setFiles} setSelectedFiles={setSelectedFiles} />
           </div>
 
           <div className="create-post-divs" style={{ marginTop: "4%" }}>
