@@ -72,6 +72,11 @@ const AppRouter = () => {
           element={<FinishSignup />}
         />
 
+        <Route
+          path="/getyoustarted/:username/:email/:firstname/:lastname"
+          element={<FinishSignup />}
+        />
+
       </Routes>
     </BrowserRouter>
   );

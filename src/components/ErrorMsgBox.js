@@ -4,7 +4,7 @@ import '../index.css';
 const ErrorMsgBox = (props) => {
   return (
     <>
-      <span><i>Error: </i><small className="error-msg-css">{props.errorMsg}</small></span>
+      <span><small className="error-msg-css">{props.errorMsg}</small></span>
     </>
   );
 };
