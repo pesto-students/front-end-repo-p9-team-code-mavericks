@@ -1,0 +1,17 @@
+{
+  "iss": "https://accounts.google.com",
+  "azp": "238627830616-pr2da7gepjeo1qvmuvm9d0eoelug5uko.apps.googleusercontent.com",
+  "aud": "238627830616-pr2da7gepjeo1qvmuvm9d0eoelug5uko.apps.googleusercontent.com",
+  "sub": "106075900275749843719",
+  "email": "avaneeshdyadav@gmail.com",
+  "email_verified": true,
+  "nbf": 1694793481,
+  "name": "Avaneesh Yadav",
+  "picture": "https://lh3.googleusercontent.com/a/ACg8ocKnCHVrZQHsKHk4gHSuyKtAE2Mc5L2Do5YO4GB8C1U=s96-c",
+  "given_name": "Avaneesh",
+  "family_name": "Yadav",
+  "locale": "en",
+  "iat": 1694793781,
+  "exp": 1694797381,
+  "jti": "52f889273183dbc61c061f582b6dbba8d5696326"
+}

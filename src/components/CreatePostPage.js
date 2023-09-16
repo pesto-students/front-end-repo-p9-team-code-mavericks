@@ -15,7 +15,7 @@ import { BACKEND_URL } from "../global";
 
 const CreatePostPage = () => {
 
-  const [steps, setSteps] = useState([{ id: 1, content: 'Add step Description' }]);
+  const [steps, setSteps] = useState([{ id: 1, content: '' }]);
   const [ingredients, setIngredients] = useState([]);
   const [ingridientInputValue, setIngridientInputValue] = useState('');
   const [isPublic, setIsPublic] = useState(false);
@@ -38,7 +38,7 @@ const CreatePostPage = () => {
 
   const handleAddStepsClick = () => {
     const newStep = randomNumberGenerator();
-    setSteps([...steps, { id: newStep, content: 'Add step Description' }]);
+    setSteps([...steps, { id: newStep, content: '' }]);
   };
 
   const handleRemoveStepClick = (id) => {
@@ -99,34 +99,39 @@ const CreatePostPage = () => {
       recipePictures = [...recipePictures, item];
     });
     console.log('pic array ', recipePictures);
+    
+    if ((title.current.value !== '') && (ingredients.length !== 0) && (description.current.value !== '')) {
+      const response = await fetch(BACKEND_URL + '/posts/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': token,
+        },
 
-    const response = await fetch(BACKEND_URL + '/posts/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': token,
-      },
+        body: JSON.stringify(
+          {
+            ispublic: isPublic,
+            recipe_steps: steps.map(item => item.content).filter(item => item !== ''),
+            recipe_title: title.current.value,
+            recipe_ingredients: ingredients.map(item => item.content),
+            recipe_category: category.current.value,
+            recipe_description: description.current.value,
+            recipe_picture: handleUploadImgResp.map(item => item.location),
+            recipe_time: cookingTime.current.value,
+          }),
+      });
+      const data = await response.json();
 
-      body: JSON.stringify(
-        {
-          ispublic: isPublic,
-          recipe_steps: steps.map(item => item.content),
-          recipe_title: title.current.value,
-          recipe_ingredients: ingredients.map(item => item.content),
-          recipe_category: category.current.value,
-          recipe_description: description.current.value,
-          recipe_picture: handleUploadImgResp.map(item => item.location),
-          recipe_time: cookingTime.current.value,
-        }),
-    });
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.log(data.error);
-      return;
+      if (!response.ok) {
+        console.log(data.error);
+        return;
+      }
+      console.log(data);
+      window.location.href = '/';
     }
-    console.log(data);
-    window.location.href = '/';
+    else{
+      alert("Fill all the required details");
+    }
   }
 
   const handleUpload = async (token) => {
@@ -176,7 +181,7 @@ const CreatePostPage = () => {
             <div style={{ padding: "1%" }}>
               <FloatingLabel
                 controlId="floatingInput"
-                label="Recipe Title"
+                label="Recipe Title *"
                 className="mb-3"
               >
                 <Form.Control type="text" placeholder="" ref={title} />
@@ -243,7 +248,7 @@ const CreatePostPage = () => {
                 <div key={`step_${step.id}`}>
                   <FloatingLabel
                     controlId={`floatingTextarea${step.id}`}
-                    label={`Step ${index + 1}`}
+                    label={`Step Description ${index + 1}`}
                     className='mt-2'
                   >
                     <Form.Control

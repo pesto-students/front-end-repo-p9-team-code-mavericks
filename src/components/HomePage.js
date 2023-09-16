@@ -173,6 +173,7 @@ const HomePage = () => {
               <div className='feeds-flex-div'>
                 {feeds && feeds.length > 0 ? (
                   feeds.map((feed, index) => {
+                    if (feed.ispublic === true) {
                     if (index === feeds.length - 1) {
                       return (
                         <div style={{}} key={feed._id} ref={lastRecipeCardRef}>
@@ -186,7 +187,7 @@ const HomePage = () => {
                         </div>
                       );
                     }
-                  })
+                }})
                 ) : (
                   <>Nothing to show!</>
                 )}
