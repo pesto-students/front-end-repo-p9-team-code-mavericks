@@ -309,65 +309,6 @@ export default function ProfilePage() {
                 </div>
               </MDBCardBody>
             </MDBCard>
-
-            {Cookies.get('username') == user ?
-              <MDBCard className="mb-4 mb-lg-0">
-                <MDBCardBody className='visibility-settings-card'>
-                  <div style={{ display: 'flex', justifyContent: 'space-around', flexDirection: 'column' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-                      <div style={{ fontSize: '5vh:', color: 'gray' }}>Visibility Settings</div>
-                      <div className='settings-icon' style={{ backgroundImage: `url(${settingsIcon})` }}>
-                      </div>
-                    </div>
-                    <hr />
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '2%', paddingTop: '1%' }}>
-                      <div style={{ color: 'orange' }}>Followers</div>
-                      <div>
-                        <Form>
-                          <Form.Check // prettier-ignore
-                            type="switch"
-                            id="custom-switch"
-                            checked={isFollowersVisible}
-                            onChange={followersVisibilityToggle}
-                          /></Form>
-                      </div>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '2%', paddingTop: '1%' }}>
-                      <div style={{ color: 'orange' }}>Following</div>
-                      <div>
-                        <Form>
-                          <Form.Check // prettier-ignore
-                            type="switch"
-                            id="custom-switch"
-                            checked={isFollowingVisible}
-                            onChange={followingVisibilityToggle}
-                          /></Form>
-                      </div>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '2%', paddingTop: '1%' }}>
-                      <div style={{ color: 'orange' }}>Email</div>
-                      <div><Form><Form.Check // prettier-ignore
-                        type="switch"
-                        id="custom-switch"
-                        checked={isEmailVisible}
-                        onChange={emailVisibilityToggle}
-                      /></Form></div>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '2%', paddingTop: '1%' }}>
-                      <div style={{ color: 'orange' }}>Contact</div>
-                      <div><Form><Form.Check // prettier-ignore
-                        type="switch"
-                        id="custom-switch"
-                        checked={isContactVisible}
-                        onChange={contactVisibilityToggle}
-                      /></Form></div>
-                    </div>
-                  </div>
-
-                </MDBCardBody>
-              </MDBCard> :
-              <></>
-            }
           </MDBCol>
           <MDBCol lg="8">
             <MDBCard className="mb-4">

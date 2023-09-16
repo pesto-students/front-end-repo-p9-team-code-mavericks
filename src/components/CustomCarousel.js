@@ -24,6 +24,7 @@ const CustomCarousel = (props) => {
   };
 
   const getImagesArr = () => {
+    console.log(JSON.stringify(props.pictures));
     if(!props.pictures || props.pictures.length == 0)
       setImages([img1]);
     else
@@ -33,7 +34,7 @@ const CustomCarousel = (props) => {
   useEffect(()=>{
     console.log('Images '+props.pictures);
     getImagesArr();
-  },[])
+  },[props.pictures]);
 
   return (
     <div className="custom-carousel" style={{ backgroundColor: 'lightblue', display: 'flex', justifyContent: 'space-around', alignItems: 'center', width:'100%' }}>

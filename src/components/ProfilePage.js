@@ -115,6 +115,7 @@ const ProfilePage = () => {
               </div>
 
               <div
+                style={{display: user != Cookies.get('username')? 'none': 'none'}}
                 className={activeLink == 'editProf' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
                 onClick={() => { handleSideNavLinkClick('editProf') }}
               >
@@ -161,6 +162,7 @@ const ProfilePage = () => {
                 </div>
 
                 <div
+                  style={{display: user != Cookies.get('username')? 'none': 'none'}}
                   className={activeLink == 'editProf' ? 'profile-side-nav-link-active' : 'profile-side-nav-links'}
                   onClick={() => { handleSideNavLinkClick('editProf') }}
                 >

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -68,6 +68,19 @@ export default function MobileNavbar() {
     if (newValue === 'logout')
       handleLogoutClick();
   };
+
+  const search = useCallback(debounce(fetchSearchResults, 1000),[]);
+
+  function debounce(func, delay) {
+    let timeoutId;
+  
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  }
 
   const getNavHeight = () => {
     if (navRef.current) {
@@ -182,8 +195,8 @@ export default function MobileNavbar() {
       setSearchResults([]);
       return;
     }
-
-    fetchSearchResults(trimmedKeyword);
+    
+    search(trimmedKeyword);
 
   }, [keyword]);
 

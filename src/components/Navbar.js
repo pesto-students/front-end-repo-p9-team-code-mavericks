@@ -4,6 +4,7 @@ import { logout } from '../store/usernameSlice';
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import '../css/navbar.css';
+import { useCallback } from "react";
 import seachIconImg from "../img/icons8-search.svg";
 import ListGroup from "react-bootstrap/ListGroup";
 import { BACKEND_URL } from "../global";
@@ -24,8 +25,18 @@ const Navbar = () => {
   const [navHeight, setNavHeight] = useState();
   const [searchResults, setSearchResults] = useState([]);
   const [keyword, setKeyword] = useState('');
-
   const [scrolled, setScrolled] = useState(false);
+
+  function debounce(func, delay) {
+    let timeoutId;
+  
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  }
 
   useEffect(() => {
     setNavHeight(getNavHeight());
@@ -133,6 +144,8 @@ const Navbar = () => {
       window.location.href = '/post/' + result._id;
   }
 
+  const search = useCallback(debounce(fetchSearchResults, 1000),[]);
+
   useEffect(() => {
     setSearchResults([]);
     const trimmedKeyword = keyword.trim();
@@ -142,10 +155,11 @@ const Navbar = () => {
       setSearchResults([]);
       return;
     }
-
-    fetchSearchResults(trimmedKeyword);
+    
+    search(trimmedKeyword);
 
   }, [keyword]);
+  
 
   return (
     <>
