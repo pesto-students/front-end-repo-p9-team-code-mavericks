@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import '../css/login_signup.css';
 import { Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import { BACKEND_URL } from "../global";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
 import ErrorMsgBox from "./ErrorMsgBox";
+import logo from '../img/rasoi_small_logo.png';
 
 const SignupContent = (props) => {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const SignupContent = (props) => {
 
       if (!response.ok) {
         console.log(data.error);
-        setSignUpErr(JSON.stringify(data.error));
+        setSignUpErr(data.error);
         return;
       }
       console.log(data);
@@ -43,7 +44,7 @@ const SignupContent = (props) => {
 
     } catch (err) {
       console.error('Error fetching username:', err);
-      setSignUpErr(JSON.stringify(err));
+      setSignUpErr(err);
     }
   }
 
@@ -81,6 +82,7 @@ const SignupContent = (props) => {
       passwordInputRef.current.style.border = '1px solid gray';
       confirmPasswordInputRef.current.style.border = '1px solid red';
       setSignUpErr('Confirm password cannot be empty.');
+      return;
     }
     else {
       confirmPasswordInputRef.current.style.border = '1px solid gray';
@@ -98,13 +100,29 @@ const SignupContent = (props) => {
       setSignUpErr('')
     }
 
-    if (signUpErr == '')
-      signupUser();
+    signupUser();
   };
+
+  useEffect(() => {
+    document.body.style.backgroundColor = 'white'; // Set your desired background color here
+
+    return () => {
+      document.body.style.backgroundColor = ''; // Reset background color when component unmounts
+    };
+  }, []);
 
   return (
     <>
-      <div><h1><b style={{ color: 'orange' }}>R/\SO!</b></h1></div>
+      <div>
+        <h1>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ maxWidth: '100%', maxHeight: '100%', }}>
+              <img src={logo} style={{ borderRadius: '10px', width: '50px', maxWidth: '100%', maxHeight: '100%' }} />
+            </div>&nbsp;
+            <div style={{color: 'orange'}}>R/\SO!</div>
+          </div>
+        </h1>
+      </div>
       <div><h3 style={{ color: 'gray' }}>Create New Account!</h3></div><br></br>
       {/* <hr style={{ color: 'white' }} /> */}
       <Card style={{ border: '0' }}>

@@ -6,6 +6,7 @@ import HomePage from './HomePage';
 import '../css/login_signup.css';
 import { Button, Card, Container } from 'react-bootstrap';
 import LoginContent from './LoginContent';
+import ErrorMsgBox from './ErrorMsgBox';
 import SignupContent from './SignupContent';
 
 const LoginSignupPage = () => {

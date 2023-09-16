@@ -16,7 +16,7 @@ import { BACKEND_URL } from "../global";
 const CreatePostPage = () => {
 
   const [steps, setSteps] = useState([{ id: 1, content: 'Add step Description' }]);
-  const [ingridients, setIngridients] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [ingridientInputValue, setIngridientInputValue] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [files, setFiles] = useState([]);
@@ -46,7 +46,7 @@ const CreatePostPage = () => {
   };
 
   const handleRemoveBadgeClick = (id) => {
-    setIngridients(ingridients.filter((ingridient) => ingridient.id !== id));
+    setIngredients(ingredients.filter((ingridient) => ingridient.id !== id));
   };
 
   const handleStepChange = (index, newText) => {
@@ -66,7 +66,7 @@ const CreatePostPage = () => {
     if ((content != '') && (content != ' ')) {
       console.log(content);
       const newingridient = Math.floor(Math.random() * 10000000000);;
-      setIngridients([...ingridients, { id: newingridient, content: content }]);
+      setIngredients([...ingredients, { id: newingridient, content: content }]);
       setIngridientInputValue('');
     }
   }
@@ -112,7 +112,7 @@ const CreatePostPage = () => {
           ispublic: isPublic,
           recipe_steps: steps.map(item => item.content),
           recipe_title: title.current.value,
-          recipe_ingredients: ingridients.map(item => item.content),
+          recipe_ingredients: ingredients.map(item => item.content),
           recipe_category: category.current.value,
           recipe_description: description.current.value,
           recipe_picture: handleUploadImgResp.map(item => item.location),
@@ -282,7 +282,7 @@ const CreatePostPage = () => {
               </div>
             </div>
             <div style={{ padding: "1%" }}>
-              {ingridients.map((ingridient) => {
+              {ingredients.map((ingridient) => {
                 return (
                   <>
                     <div key={`ingridient_${ingridient.id}`} style={{ maxWidth: '100%', overflow: 'auto', margin: '3px', backgroundColor: 'orange', alignItems: "center", padding: "0.5% 1% 1% 3%", borderRadius: "25px", display: 'inline-block' }}>
